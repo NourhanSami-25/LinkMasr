@@ -40,6 +40,37 @@
 			        data-kt-scroll-activate="true" data-kt-scroll-height="auto"
 			        data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer"
 			        data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px">
+			        
+			        @if(isset($userTodos) && $userTodos->count() > 0)
+			            @foreach($userTodos as $todo)
+			            <!--begin::Todo item-->
+			            <div class="d-flex flex-stack py-4">
+			                <!--begin::Details-->
+			                <div class="d-flex align-items-center">
+			                    <!--begin::Details-->
+			                    <div class="ms-5">
+			                        <a href="{{route('todos.show', $todo->id)}}" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">{{$todo->subject}}</a>
+			                        <div class="fw-semibold text-muted">{{Str::limit($todo->description, 50)}}</div>
+			                        <div class="d-flex align-items-center mt-2">
+			                            <span class="badge badge-light-{{$todo->status == 'pending' ? 'warning' : ($todo->status == 'completed' ? 'success' : 'primary')}} me-2">{{__('general.' . $todo->status)}}</span>
+			                            <span class="badge badge-light-{{$todo->priority == 'high' ? 'danger' : ($todo->priority == 'normal' ? 'primary' : 'secondary')}}">{{__('general.' . $todo->priority)}}</span>
+			                        </div>
+			                    </div>
+			                    <!--end::Details-->
+			                </div>
+			                <!--end::Details-->
+			            </div>
+			            <!--end::Todo item-->
+			            @endforeach
+			        @else
+			            <!--begin::Empty state-->
+			            <div class="text-center py-10">
+			                <i class="ki-outline ki-note-2 fs-3x text-gray-400 mb-5"></i>
+			                <div class="fw-semibold fs-6 text-gray-600">{{__('general.no_todos_found')}}</div>
+			            </div>
+			            <!--end::Empty state-->
+			        @endif
+			        
 			    </div>
 			    <!--end::Todo List-->
 			</div>

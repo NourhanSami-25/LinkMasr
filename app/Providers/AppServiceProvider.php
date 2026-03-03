@@ -68,6 +68,8 @@ class AppServiceProvider extends ServiceProvider
         Todo::observe(TodoObserver::class);
         Pyment::observe(PaymentObserver::class);
 
+        // Share todos with the drawer
+        View::composer('layout._todo_drawer', \App\Http\View\Composers\TodoComposer::class);
 
         View::composer('*', function ($view) {
             try {
@@ -75,6 +77,17 @@ class AppServiceProvider extends ServiceProvider
             } catch (\Exception $e) {
                 Log::error('View not found: ' . request()->path());
                 abort(404, 'View Not Found');
+            }
+        });
+
+        // Share user todos with all views
+        View::composer('*', function ($view) {
+            if (auth()->check()) {
+                $userTodos = Todo::where('user_id', auth()->id())
+                    ->orderBy('created_at', 'desc')
+                    ->limit(10)
+                    ->get();
+                $view->with('userTodos', $userTodos);
             }
         });
 
