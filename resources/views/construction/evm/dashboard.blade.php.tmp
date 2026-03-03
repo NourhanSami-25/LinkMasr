@@ -1,0 +1,59 @@
+    /* Enhanced Table Styles */
+    .content-card .table {
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+    
+    .content-card .table thead th {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #1e293b;
+        padding: 1rem 1.25rem;
+        background: #f8fafc;
+        border: none;
+    }
+    
+    .content-card .table thead tr:first-child th:first-child {
+        border-top-right-radius: 16px;
+    }
+    
+    .content-card .table thead tr:first-child th:last-child {
+        border-top-left-radius: 16px;
+    }
+    
+    .content-card .table tbody td {
+        font-size: 1rem;
+        padding: 1rem 1.25rem;
+        color: #334155;
+        border-color: #f1f5f9;
+        vertical-align: middle;
+    }
+    
+    .content-card .table tbody tr:hover {
+        background: #f8fafc;
+    }
+    
+    .content-card .table tfoot td {
+        font-size: 1rem;
+        padding: 1rem 1.25rem;
+        background: #f1f5f9;
+        border: none;
+    }
+    
+    .content-card .table tfoot tr:last-child td:first-child {
+        border-bottom-right-radius: 16px;
+    }
+    
+    .content-card .table tfoot tr:last-child td:last-child {
+        border-bottom-left-radius: 16px;
+    }
+    
+    .content-card .table-responsive {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    
+    .content-card .btn {
+        font-size: 0.9rem;
+        font-weight: 600;
+    }

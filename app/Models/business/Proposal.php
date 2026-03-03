@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Models\business;
+
+use App\Models\project\Project;
+use App\Models\task\Task;
+use App\Models\client\Client;
+
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Proposal extends Model
+{
+    protected $fillable = [
+        'project_id',
+        'task_id',
+        'client_id',
+        'client_name',
+        'number',
+        'subject',
+        'description',
+        'date',
+        'due_date',
+        'currency',
+        'sale_agent',
+        'message',
+        'total',
+        'status',
+        'created_by'
+    ];
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function task(): BelongsTo
+    {
+        return $this->belongsTo(Task::class);
+    }
+
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+}

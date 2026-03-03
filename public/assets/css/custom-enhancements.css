@@ -1,0 +1,67 @@
+/* Custom enhancements - temporarily disabled */
+
+/* Fix Pagination Buttons Color */
+.page-item .page-link {
+    color: #181C32 !important;
+}
+.page-item.previous .page-link, .page-item.next .page-link {
+    color: #181C32 !important;
+}
+.page-item.disabled .page-link {
+    color: #A1A5B7 !important;
+}
+
+/* UNIVERSIAL TEXT CONTRAST ENHANCEMETS */
+/* Force all standard gray text classes to be black for better visibility */
+
+/* General Utility Classes */
+.text-muted,
+.text-gray-100,
+.text-gray-200,
+.text-gray-300,
+.text-gray-400,
+.text-gray-500,
+.text-gray-600,
+.text-gray-700,
+.text-gray-800 {
+    color: #181C32 !important; /* Metronic Dark / Black */
+}
+
+/* Specific Component Overrides */
+.form-label, 
+.col-form-label, 
+.fw-semibold.text-gray-600,
+.fw-bold.text-gray-600,
+.fw-semibold.text-gray-500,
+.fw-bold.text-gray-500 {
+    color: #181C32 !important;
+}
+
+/* Nav Links - Default state */
+.nav-link {
+    color: #181C32 !important;
+}
+/* Ensure Active Nav Links keep their primary color (usually blue) */
+.nav-link.active, .nav-link:hover {
+    color: #009ef7 !important; /* Metronic Primary Blue */
+}
+
+/* Breadcrumbs */
+.breadcrumb-item, .breadcrumb-item a {
+    color: #181C32 !important;
+}
+.breadcrumb-item.text-muted {
+    color: #181C32 !important;
+}
+
+/* Table Headers */
+th.text-gray-400, td.text-gray-400,
+tr.text-gray-400 th, tr.text-gray-400 td {
+    color: #181C32 !important;
+}
+
+/* File Manager / Icons labels */
+.file-name, .file-size, .file-date {
+    color: #181C32 !important;
+}
+

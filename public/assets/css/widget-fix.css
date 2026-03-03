@@ -1,0 +1,59 @@
+/* ===========================================
+   Dashboard Widgets - تحسين الودجات (Fixed)
+   =========================================== */
+
+/* Widget card base styling */
+body .card.card-flush,
+.container-fluid .card.card-flush {
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Widget card hover effect */
+body .card.card-flush:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Stats number larger */
+body .fs-2x,
+.card .fs-2x {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    color: inherit !important;
+}
+
+body .fs-3x,
+.card .fs-3x {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    color: inherit !important;
+}
+
+body .fs-2qx,
+.card .fs-2qx {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+    color: #181c32 !important;
+}
+
+/* Task summary stats boxes */
+body .bg-gray-100.bg-opacity-70 {
+    background-color: #f8f9fa !important;
+    border-radius: 10px !important;
+}
+
+body .text-gray-700.fw-bolder {
+    color: #181c32 !important;
+    font-size: 1.75rem !important;
+}
+
+body .text-gray-500.fw-semibold {
+    color: #5e6278 !important;
+    font-size: 0.9rem !important;
+}
+
+/* Symbol icons */
+body .symbol.symbol-30px .symbol-label {
+    background-color: #f1f5f9 !important;
+}

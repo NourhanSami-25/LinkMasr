@@ -1,0 +1,156 @@
+/**
+ * Dashboard Widgets - Drag & Drop Support
+ * دعم السحب والإفلات لجميع الودجات
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Find all widget containers
+    const widgetContainers = document.querySelectorAll('#kt_app_content_container > .row');
+    
+    // Create a main sortable container
+    const mainContainer = document.getElementById('kt_app_content_container');
+    if (!mainContainer) return;
+    
+    // Wrap all widgets in a sortable container
+    let widgetIndex = 0;
+    const allWidgets = [];
+    
+    // Collect all widgets from all rows
+    widgetContainers.forEach((row, rowIndex) => {
+        if (row.id === 'announcement-card') return; // Skip announcements
+        
+        row.querySelectorAll('[class*="col-"]').forEach(widget => {
+            // Add widget ID if not present
+            if (!widget.dataset.widgetId) {
+                widget.dataset.widgetId = 'widget-' + widgetIndex++;
+            }
+            
+            // Add drag handle to card header
+            const cardHeader = widget.querySelector('.card-header');
+            if (cardHeader && !cardHeader.querySelector('.drag-handle')) {
+                const dragHandle = document.createElement('i');
+                dragHandle.className = 'fa fa-grip-vertical text-gray-400 me-3 drag-handle';
+                dragHandle.style.cursor = 'grab';
+                dragHandle.title = 'اسحب لتغيير الموقع';
+                
+                // Insert at beginning of header
+                const titleElement = cardHeader.querySelector('.card-title, h3, h4, h5');
+                if (titleElement) {
+                    titleElement.insertBefore(dragHandle, titleElement.firstChild);
+                } else {
+                    cardHeader.insertBefore(dragHandle, cardHeader.firstChild);
+                }
+            }
+            
+            // Make card header draggable
+            if (cardHeader) {
+                cardHeader.style.cursor = 'grab';
+            }
+            
+            allWidgets.push({
+                element: widget,
+                row: row,
+                id: widget.dataset.widgetId
+            });
+        });
+        
+        // Add row ID if not present
+        if (!row.id) {
+            row.id = 'widget-row-' + rowIndex;
+        }
+        
+        // Initialize Sortable for each row
+        if (typeof Sortable !== 'undefined') {
+            new Sortable(row, {
+                animation: 200,
+                ghostClass: 'widget-ghost',
+                chosenClass: 'widget-chosen',
+                dragClass: 'widget-drag',
+                handle: '.card-header',
+                group: 'dashboard-widgets', // Allow moving between rows
+                onStart: function(evt) {
+                    evt.item.querySelector('.card-header').style.cursor = 'grabbing';
+                },
+                onEnd: function(evt) {
+                    evt.item.querySelector('.card-header').style.cursor = 'grab';
+                    saveWidgetOrder();
+                }
+            });
+        }
+    });
+    
+    // Load saved widget order
+    loadWidgetOrder();
+    
+    // Save widget order to localStorage
+    function saveWidgetOrder() {
+        const order = {};
+        document.querySelectorAll('#kt_app_content_container > .row').forEach((row, rowIndex) => {
+            if (row.id === 'announcement-card') return;
+            
+            order[row.id || 'row-' + rowIndex] = [];
+            row.querySelectorAll('[data-widget-id]').forEach(widget => {
+                order[row.id || 'row-' + rowIndex].push(widget.dataset.widgetId);
+            });
+        });
+        localStorage.setItem('dashboardWidgetOrder_v2', JSON.stringify(order));
+    }
+    
+    // Load widget order from localStorage
+    function loadWidgetOrder() {
+        try {
+            const savedOrder = localStorage.getItem('dashboardWidgetOrder_v2');
+            if (!savedOrder) return;
+            
+            const order = JSON.parse(savedOrder);
+            
+            Object.keys(order).forEach(rowId => {
+                const row = document.getElementById(rowId);
+                if (!row) return;
+                
+                const widgetIds = order[rowId];
+                widgetIds.forEach(widgetId => {
+                    const widget = document.querySelector('[data-widget-id="' + widgetId + '"]');
+                    if (widget && widget.parentElement !== row) {
+                        row.appendChild(widget);
+                    } else if (widget) {
+                        row.appendChild(widget);
+                    }
+                });
+            });
+        } catch(e) {
+            console.log('Error loading widget order:', e);
+        }
+    }
+    
+    // Add CSS for drag states
+    const style = document.createElement('style');
+    style.textContent = `
+        .widget-ghost {
+            opacity: 0.4;
+            background: #e8f4ff !important;
+            border: 2px dashed #3b82f6 !important;
+            border-radius: 12px !important;
+        }
+        .widget-chosen {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+            transform: scale(1.02);
+        }
+        .widget-drag {
+            opacity: 0.9;
+        }
+        .drag-handle {
+            transition: color 0.2s;
+        }
+        .drag-handle:hover {
+            color: #3b82f6 !important;
+        }
+        .card-header:hover .drag-handle {
+            color: #3b82f6 !important;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    console.log('Dashboard widgets initialized with drag & drop support');
+});

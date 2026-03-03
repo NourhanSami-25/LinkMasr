@@ -1,0 +1,56 @@
+<?php
+return [
+
+    'project_id.integer' => 'The project ID must be an integer.',
+    'project_id.exists' => 'The selected project ID is invalid.',
+    'subject.string' => 'The subject must be a string.',
+    'subject.max' => 'The subject may not be greater than 255 characters.',
+    'defendant_name.required' => 'The defendant name field is required.',
+    'description.string' => 'The description must be a string.',
+    'description.max' => 'The description may not be greater than 2048 characters.',
+  
+    'billing_type.string' => 'The billing type must be a string.',
+    'billing_type.max' => 'The billing type may not be greater than 50 characters.',
+    'status.required' => 'The status field is required.',
+    'status.string' => 'The status must be a string.',
+    'status.max' => 'The status may not be greater than 50 characters.',
+    'hold_reason.string' => 'The hold reason must be a string.',
+    'hold_reason.max' => 'The hold reason may not be greater than 255 characters.',
+    'hold_date.date' => 'The hold date must be a valid date.',
+    'close_reason.string' => 'The close reason must be a string.',
+    'close_reason.max' => 'The close reason may not be greater than 255 characters.',
+    'close_date.date' => 'The close date must be a valid date.',
+    'final_judgment.string' => 'The final judgment must be a string.',
+    'final_judgment.max' => 'The final judgment may not be greater than 255 characters.',
+    'final_judgment_date.date' => 'The final judgment date must be a valid date.',
+   
+    'date.date' => 'The start date must be a valid date.',
+    'due_date.date' => 'The due date must be a valid date.',
+    'defendant_type.string' => 'The defendant type must be a string.',
+    'defendant_type.in' => 'The defendant type must be either person or company.',
+    'defendant_type.max' => 'The defendant type may not be greater than 50 characters.',
+    'defendant_full_name.string' => 'The defendant name must be a string.',
+    'defendant_full_name.max' => 'The defendant name may not be greater than 255 characters.',
+    'defendant_identity_type.string' => 'The defendant identity type must be a string.',
+    'defendant_identity_type.max' => 'The defendant identity type may not be greater than 50 characters.',
+    'defendant_identity_number.string' => 'The defendant identity number must be a string.',
+    'defendant_identity_number.max' => 'The defendant identity number may not be greater than 50 characters.',
+    'defendant_tax_number.string' => 'The defendant tax number must be a string.',
+    'defendant_tax_number.max' => 'The defendant tax number may not be greater than 50 characters.',
+    'defendant_commercial_number.string' => 'The defendant commercial number must be a string.',
+    'defendant_commercial_number.max' => 'The defendant commercial number may not be greater than 50 characters.',
+    'defendant_address.string' => 'The defendant address must be a string.',
+    'defendant_address.max' => 'The defendant address may not be greater than 255 characters.',
+    'defendant_phone.string' => 'The defendant phone must be a string.',
+    'defendant_phone.max' => 'The defendant phone may not be greater than 50 characters.',
+    'defendant_email.email' => 'The defendant email must be a valid email address.',
+    'defendant_email.max' => 'The defendant email may not be greater than 255 characters.',
+    
+    'notify_creation_contacts.boolean' => 'The notify creation contacts field must be true or false.',
+    'notify_creation_client.boolean' => 'The notify creation client field must be true or false.',
+    'created_by.integer' => 'The created by field must be an integer.',
+    'created_by.exists' => 'The selected creator is invalid.',
+    
+
+];
+

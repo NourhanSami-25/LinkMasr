@@ -1,0 +1,11 @@
+    .content-card .table thead th:first-child,
+    .content-card .table tbody td:first-child,
+    .content-card .table tfoot td:first-child {
+        padding-right: 2rem;
+    }
+    
+    .content-card .table thead th:last-child,
+    .content-card .table tbody td:last-child,
+    .content-card .table tfoot td:last-child {
+        padding-left: 2rem;
+    }

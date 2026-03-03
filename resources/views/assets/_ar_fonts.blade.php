@@ -1,0 +1,3 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Beiruti:wght@200..900&family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Bona+Nova:ital,wght@0,400;0,700;1,400&family=Cairo:slnt,wght@-1,663&family=Katibeh&family=Kufam:ital,wght@0,400..900;1,400..900&family=Lateef:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
