@@ -62,8 +62,11 @@ class AutoReminderService
             Reminder::create([
                 'referable_type' => $modelClass,
                 'referable_id' => $model->id,
+                'user_id' => auth()->id(),
+                'assigned_to' => auth()->id(),
                 'date' => $reminderDate,
                 'subject' => "{$modelType} auto reminder - {$readableTime}",
+                'description' => '',
                 'priority' => 'urgent',
                 'remind_before' => $minutes,
                 'status' => 'pending',

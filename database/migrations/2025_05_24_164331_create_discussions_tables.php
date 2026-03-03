@@ -11,20 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('discussions', function (Blueprint $table) {
-            $table->id();
-            $table->morphs('discussionable');
-            $table->index(['discussionable_id', 'discussionable_type']);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('discussions')) {
+            Schema::create('discussions', function (Blueprint $table) {
+                $table->id();
+                $table->morphs('discussionable');
+                $table->index(['discussionable_id', 'discussionable_type']);
+                $table->timestamps();
+            });
+        }
 
-        Schema::create('discussion_messages', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('discussion_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->text('message');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('discussion_messages')) {
+            Schema::create('discussion_messages', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('discussion_id')->constrained()->onDelete('cascade');
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->text('message');
+                $table->timestamps();
+            });
+        }
     }
 
 

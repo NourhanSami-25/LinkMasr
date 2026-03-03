@@ -110,7 +110,7 @@
 										<i class="ki-outline ki-down fs-2 me-0"></i></a>
                                         <!-- Construction Module Link -->
                                         <a href="{{ route('projects.construction.index', $project->id) }}" class="btn btn-success ps-7">
-                                            <i class="ki-outline ki-abstract-26 fs-2 me-2"></i> Construction
+                                            <i class="ki-outline ki-abstract-26 fs-2 me-2"></i> {{ __('general.construction') ?? 'المقاولات' }}
                                         </a>
 										<a href="{{ route('projects.index')}}" class="btn btn-danger ps-7">{{ __('general.back') }}</a>
 										<!--begin::Menu-->

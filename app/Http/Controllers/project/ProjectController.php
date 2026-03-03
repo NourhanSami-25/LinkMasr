@@ -52,7 +52,7 @@ class ProjectController extends Controller
             $this->discussionService->createFor($project);
             if ($project->assignees)
                 $this->notificationService->notify('Create Project: ' . $project->subject, '', 'none', __getUsersFromIds($project->assignees));
-            return redirect()->route('projects.show', $project->id)->with('success', 'Project Created Successfully');
+            return redirect()->route('projects.show', $project->id)->with('success', __('تم إضافة المشروع') . ': ' . $project->subject);
         } catch (Exception $e) {
             throw $e;
         }

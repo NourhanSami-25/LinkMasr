@@ -12,33 +12,51 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Skip dropping foreign keys for SQLite compatibility
-            if (config('database.default') !== 'sqlite') {
+            // For SQLite, we need to handle foreign keys differently
+            // Skip dropping columns with foreign keys in SQLite
+            if (config('database.default') === 'sqlite') {
+                // Only drop columns without foreign keys
+                $columnsToDrop = [];
+                if (Schema::hasColumn('users', 'first_name')) {
+                    $columnsToDrop[] = 'first_name';
+                }
+                if (Schema::hasColumn('users', 'last_name')) {
+                    $columnsToDrop[] = 'last_name';
+                }
+                
+                if (!empty($columnsToDrop)) {
+                    $table->dropColumn($columnsToDrop);
+                }
+                
+                // Skip dropping position_id and role_id for SQLite
+                // They will remain in the table but won't be used
+            } else {
+                // For other databases, drop foreign keys first
                 if (Schema::hasColumn('users', 'position_id')) {
                     $table->dropForeign(['position_id']);
                 }
                 if (Schema::hasColumn('users', 'role_id')) {
                     $table->dropForeign(['role_id']);
                 }
-            }
-            
-            // Drop columns only if they exist
-            $columnsToDrop = [];
-            if (Schema::hasColumn('users', 'first_name')) {
-                $columnsToDrop[] = 'first_name';
-            }
-            if (Schema::hasColumn('users', 'last_name')) {
-                $columnsToDrop[] = 'last_name';
-            }
-            if (Schema::hasColumn('users', 'position_id')) {
-                $columnsToDrop[] = 'position_id';
-            }
-            if (Schema::hasColumn('users', 'role_id')) {
-                $columnsToDrop[] = 'role_id';
-            }
-            
-            if (!empty($columnsToDrop)) {
-                $table->dropColumn($columnsToDrop);
+                
+                // Drop columns only if they exist
+                $columnsToDrop = [];
+                if (Schema::hasColumn('users', 'first_name')) {
+                    $columnsToDrop[] = 'first_name';
+                }
+                if (Schema::hasColumn('users', 'last_name')) {
+                    $columnsToDrop[] = 'last_name';
+                }
+                if (Schema::hasColumn('users', 'position_id')) {
+                    $columnsToDrop[] = 'position_id';
+                }
+                if (Schema::hasColumn('users', 'role_id')) {
+                    $columnsToDrop[] = 'role_id';
+                }
+                
+                if (!empty($columnsToDrop)) {
+                    $table->dropColumn($columnsToDrop);
+                }
             }
 
             // Only add name if it doesn't exist

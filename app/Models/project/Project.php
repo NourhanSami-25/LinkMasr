@@ -28,12 +28,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Project extends Model
 {
     protected $fillable = [
+        'user_id',
         'client_id',
+        'name',
         'subject',
         'description',
         'status',
         'date',
+        'start_date',
         'due_date',
+        'deadline_date',
         'billing_type',
         'is_repeated',
         'repeat_every',

@@ -68,6 +68,33 @@ class ProjectService
     public function create(array $data)
     {
         $data['created_by'] = Auth::id();
+        $data['user_id'] = Auth::id(); // Add user_id for foreign key constraint
+        
+        // Copy subject to name for compatibility with database schema
+        if (isset($data['subject'])) {
+            $data['name'] = $data['subject'];
+        }
+        
+        // Map 'date' to 'start_date' for database schema compatibility
+        if (isset($data['date'])) {
+            $data['start_date'] = $data['date'];
+        }
+        
+        // Map 'due_date' to 'deadline_date' for database schema compatibility
+        if (isset($data['due_date'])) {
+            $data['deadline_date'] = $data['due_date'];
+        }
+        
+        // Set default empty string for description if not provided
+        if (!isset($data['description']) || $data['description'] === null) {
+            $data['description'] = '';
+        }
+        
+        // Set default billing_type if not provided
+        if (!isset($data['billing_type']) || $data['billing_type'] === null) {
+            $data['billing_type'] = 'fixed';
+        }
+        
         if (!empty($data['assignees'])) {
             $data['assignees'] = json_encode($data['assignees']);
         }

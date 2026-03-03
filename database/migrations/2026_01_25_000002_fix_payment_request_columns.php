@@ -11,6 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Skip column changes for SQLite
+        if (config('database.default') === 'sqlite') {
+            // For SQLite, just add the column if it doesn't exist
+            if (Schema::hasTable('paymentrequests')) {
+                Schema::table('paymentrequests', function (Blueprint $table) {
+                    if (!Schema::hasColumn('paymentrequests', 'due_date')) {
+                        $table->dateTime('due_date')->nullable()->after('date');
+                    }
+                });
+            }
+            return;
+        }
+        
         // Align 'expire_date' (Migration) with 'due_date' (Model/ERP.sql)
         if (Schema::hasTable('paymentrequests')) {
             Schema::table('paymentrequests', function (Blueprint $table) {

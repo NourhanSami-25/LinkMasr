@@ -10,14 +10,35 @@ return new class extends Migration
     {
         Schema::table('reminders', function (Blueprint $table) {
 
-            // Drop unwanted columns
-            $table->dropColumn(['notify_before', 'notify_before_type', 'is_public']);
+            // Drop unwanted columns only if they exist
+            $columnsToDrop = [];
+            if (Schema::hasColumn('reminders', 'notify_before')) {
+                $columnsToDrop[] = 'notify_before';
+            }
+            if (Schema::hasColumn('reminders', 'notify_before_type')) {
+                $columnsToDrop[] = 'notify_before_type';
+            }
+            if (Schema::hasColumn('reminders', 'is_public')) {
+                $columnsToDrop[] = 'is_public';
+            }
+            
+            if (!empty($columnsToDrop)) {
+                $table->dropColumn($columnsToDrop);
+            }
 
-            // Add new columns
-            $table->integer('remind_before')->default(0)->after('date');
-            $table->boolean('remind_at_event')->default(true)->after('remind_before');
-            $table->boolean('before_reminded')->default(false)->after('remind_at_event');
-            $table->boolean('event_reminded')->default(false)->after('before_reminded');
+            // Add new columns only if they don't exist
+            if (!Schema::hasColumn('reminders', 'remind_before')) {
+                $table->integer('remind_before')->default(0)->after('date');
+            }
+            if (!Schema::hasColumn('reminders', 'remind_at_event')) {
+                $table->boolean('remind_at_event')->default(true)->after('remind_before');
+            }
+            if (!Schema::hasColumn('reminders', 'before_reminded')) {
+                $table->boolean('before_reminded')->default(false)->after('remind_at_event');
+            }
+            if (!Schema::hasColumn('reminders', 'event_reminded')) {
+                $table->boolean('event_reminded')->default(false)->after('before_reminded');
+            }
         });
     }
 

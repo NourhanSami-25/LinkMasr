@@ -11,6 +11,55 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Skip column changes for SQLite
+        if (config('database.default') === 'sqlite') {
+            if (Schema::hasTable('pyments')) {
+                // For SQLite, just add missing columns without changing existing ones
+                Schema::table('pyments', function (Blueprint $table) {
+                    if (!Schema::hasColumn('pyments', 'number')) {
+                        $table->integer('number')->default(0);
+                    }
+                    if (!Schema::hasColumn('pyments', 'total')) {
+                        $table->decimal('total', 12, 2)->default(0);
+                    }
+                    if (!Schema::hasColumn('pyments', 'date')) {
+                        $table->date('date')->nullable();
+                    }
+                    if (!Schema::hasColumn('pyments', 'transaction_number')) {
+                        $table->string('transaction_number', 50)->nullable();
+                    }
+                    if (!Schema::hasColumn('pyments', 'invoice_id')) {
+                        $table->unsignedBigInteger('invoice_id')->nullable();
+                    }
+                    if (!Schema::hasColumn('pyments', 'pymentRequest_id')) {
+                        $table->unsignedBigInteger('pymentRequest_id')->nullable();
+                    }
+                    if (!Schema::hasColumn('pyments', 'creditNote_id')) {
+                        $table->unsignedBigInteger('creditNote_id')->nullable();
+                    }
+                    if (!Schema::hasColumn('pyments', 'expense_id')) {
+                        $table->unsignedBigInteger('expense_id')->nullable();
+                    }
+                    if (!Schema::hasColumn('pyments', 'related')) {
+                        $table->string('related', 50)->nullable()->default('invoice');
+                    }
+                    if (!Schema::hasColumn('pyments', 'client_name')) {
+                        $table->string('client_name', 255)->nullable();
+                    }
+                    if (!Schema::hasColumn('pyments', 'subject')) {
+                        $table->string('subject', 255)->nullable();
+                    }
+                    if (!Schema::hasColumn('pyments', 'currency')) {
+                        $table->string('currency', 50)->nullable();
+                    }
+                    if (!Schema::hasColumn('pyments', 'status')) {
+                        $table->string('status', 50)->nullable()->default('paid');
+                    }
+                });
+            }
+            return;
+        }
+        
         if (Schema::hasTable('pyments')) {
             
             // 1. Rename columns (Separate block to ensure execution before using them)

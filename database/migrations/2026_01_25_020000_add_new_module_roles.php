@@ -12,19 +12,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Add new roles for the new modules
-        $newRoles = [
-            ['subject' => 'construction', 'created_at' => now(), 'updated_at' => now()],
-            ['subject' => 'partners', 'created_at' => now(), 'updated_at' => now()],
-            ['subject' => 'real_estate', 'created_at' => now(), 'updated_at' => now()],
-            ['subject' => 'evm', 'created_at' => now(), 'updated_at' => now()],
-        ];
+        // Determine which column name to use
+        $columnName = Schema::hasColumn('roles', 'name') ? 'name' : 'subject';
         
-        foreach ($newRoles as $role) {
+        // Check if timestamps exist
+        $hasTimestamps = Schema::hasColumn('roles', 'created_at');
+        
+        // Add new roles for the new modules
+        $roleNames = ['construction', 'partners', 'real_estate', 'evm'];
+        
+        foreach ($roleNames as $roleName) {
             // Check if role already exists
-            $exists = DB::table('roles')->where('subject', $role['subject'])->exists();
+            $exists = DB::table('roles')->where($columnName, $roleName)->exists();
             if (!$exists) {
-                DB::table('roles')->insert($role);
+                $roleData = [$columnName => $roleName];
+                if ($hasTimestamps) {
+                    $roleData['created_at'] = now();
+                    $roleData['updated_at'] = now();
+                }
+                DB::table('roles')->insert($roleData);
             }
         }
     }
@@ -34,6 +40,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::table('roles')->whereIn('subject', ['construction', 'partners', 'real_estate', 'evm'])->delete();
+        $columnName = Schema::hasColumn('roles', 'name') ? 'name' : 'subject';
+        DB::table('roles')->whereIn($columnName, ['construction', 'partners', 'real_estate', 'evm'])->delete();
     }
 };
