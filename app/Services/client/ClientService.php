@@ -19,6 +19,7 @@ class ClientService
     public function create(array $data)
     {
         $data['created_by'] = Auth::id();
+        $data['user_id'] = Auth::id(); // Add user_id for foreign key constraint
 
         // Temporarily remove photo from $data to create client first
         $photo = $data['photo'] ?? null;

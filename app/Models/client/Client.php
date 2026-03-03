@@ -27,6 +27,7 @@ use App\Models\common\Note;
 class Client extends Model
 {
     protected $fillable = [
+        'user_id',
         'type',
         'name',
         'phone',
