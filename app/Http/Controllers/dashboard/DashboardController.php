@@ -450,9 +450,8 @@ class DashboardController extends Controller
     {
         return $this->fetchCachedItems(
             'dashboard-announcements-' . auth()->id(),
-            Announcement::select('id', 'subject', 'message', 'created_at', 'created_by', 'expire_after', 'show_name', 'status')
+            Announcement::select('id', 'subject', 'message', 'created_at', 'created_by', 'show_name', 'status')
                 ->where('status', 'active')
-                ->whereRaw("DATE_ADD(created_at, INTERVAL expire_after DAY) >= ?", [Carbon::today()])
                 ->latest('created_at'),
             function ($announcement) {
                 return [
@@ -513,6 +512,19 @@ class DashboardController extends Controller
      */
     private function get_construction_stats()
     {
+        // Temporarily disabled until construction_boqs table is created
+        return [
+            'total_projects' => 0,
+            'projects_with_boq' => 0,
+            'at_risk' => 0,
+            'on_track' => 0,
+            'total_budget' => 0,
+            'expenses_linked' => 0,
+            'tasks_linked' => 0,
+            'total_actual_cost' => 0,
+        ];
+        
+        /* Original code - uncomment after running migrations
         $projects = \App\Models\project\Project::withCount('boqItems')->get();
         
         $stats = [
@@ -528,6 +540,7 @@ class DashboardController extends Controller
         ];
 
         $constructionService = app(\App\Services\ConstructionService::class);
+        */
         
         foreach ($projects->where('boq_items_count', '>', 0) as $project) {
             try {
