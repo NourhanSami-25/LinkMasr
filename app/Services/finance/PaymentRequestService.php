@@ -57,6 +57,13 @@ class PaymentRequestService
         }
         $data['total_tax'] =  $data['overall_tax_value'] +   $data['items_tax_value'];
         $data['created_by'] = Auth::id();
+        $data['user_id'] = Auth::id(); // Add user_id for backward compatibility
+        
+        // Handle currency field - copy currency to payment_currency for backward compatibility
+        if (isset($data['currency']) && !isset($data['payment_currency'])) {
+            $data['payment_currency'] = $data['currency'];
+        }
+        
         $paymentRequest->fill($data);
         if ($data['client_id']) {
             $client_name = Client::find($data['client_id'])->name;
@@ -102,6 +109,11 @@ class PaymentRequestService
             $data['total_discount'] = $data['fixed_discount'];
         }
         $data['total_tax'] =  $data['overall_tax_value'] +   $data['items_tax_value'];
+
+        // Handle currency field - copy currency to payment_currency for backward compatibility
+        if (isset($data['currency']) && !isset($data['payment_currency'])) {
+            $data['payment_currency'] = $data['currency'];
+        }
 
         if ($data['client_id']) {
             $client_name = Client::find($data['client_id'])->name;

@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('title')
-    {{ __('general.create_invoice') }}
+    {{ __('general.create_expense') }}
 @endsection
 
 @section('breadcrumb')
@@ -9,7 +9,7 @@
         <span class="bullet bg-gray-500 w-5px h-2px"></span>
     </li>
     <li class="breadcrumb-item text-muted">
-        <a href="{{ route('invoices.index') }}" class="text-muted text-hover-primary">{{ __('general.invoices') }}</a>
+        <a href="{{ route('expenses.index') }}" class="text-muted text-hover-primary">{{ __('general.expenses') }}</a>
     </li>
     <li class="breadcrumb-item">
         <span class="bullet bg-gray-500 w-5px h-2px"></span>
@@ -20,8 +20,9 @@
 @section('content')
     <div class="card card-flush border-0">
         <div class="card-body">
-            <form id="kt_invoice_form" action="{{ route('invoices.store') }}" method="POST">
+            <form id="kt_invoice_form" action="{{ route('expenses.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <!-- Form content here, similar to the original but cleaned up and using @extends -->
                 <div class="d-flex flex-column flex-lg-row">
                     <!--begin::Content-->
                     <div class="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
@@ -29,10 +30,10 @@
                             <div class="card-body p-0">
                                 <div class="d-flex flex-column align-items-start flex-xxl-row">
                                     <div class="d-flex flex-center flex-equal fw-row text-nowrap order-1 order-xxl-2 me-4">
-                                        <span class="fs-2x fw-bold text-gray-800">{{ __('general.invoice') }} #</span>
+                                        <span class="fs-2x fw-bold text-gray-800">{{ __('general.expense') }} #</span>
                                         <input type="text" name="number"
                                             class="form-control form-control-flush fw-bold fs-2x w-100px"
-                                            value="{{ $invoice_number }}" />
+                                            value="{{ $expense_number }}" />
                                     </div>
                                 </div>
                                 <div class="separator separator-dashed my-10"></div>
@@ -53,20 +54,10 @@
                                             placeholder="{{ __('general.billing_address') }}" />
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-5">
-                                                <label
-                                                    class="form-label fs-6 fw-bold text-gray-700 mb-3 required">{{ __('general.date') }}</label>
-                                                <input type="date" name="date" class="form-control form-control-solid"
-                                                    value="{{ date('Y-m-d') }}" required />
-                                            </div>
-                                            <div class="col-md-6 mb-5">
-                                                <label
-                                                    class="form-label fs-6 fw-bold text-gray-700 mb-3">{{ __('general.due_date') }}</label>
-                                                <input type="date" name="due_date" class="form-control form-control-solid"
-                                                    value="{{ date('Y-m-d', strtotime('+30 days')) }}" />
-                                            </div>
-                                        </div>
+                                        <label
+                                            class="form-label fs-6 fw-bold text-gray-700 mb-3 required">{{ __('general.date') }}</label>
+                                        <input type="date" name="date" class="form-control form-control-solid"
+                                            value="{{ date('Y-m-d') }}" required />
                                     </div>
                                 </div>
 
@@ -94,23 +85,12 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label
-                                            class="form-label fs-6 fw-bold mb-3">{{ __('general.payment_request') }}</label>
-                                        <select name="pymentRequest_id" class="form-select form-select-solid"
-                                            data-control="select2">
-                                            <option value="">{{ __('general.none') }}</option>
-                                            @foreach($paymentRequests as $pr)
-                                                <option value="{{ $pr->id }}">#{{ $pr->number }} ({{ $pr->client_name }})
-                                                </option>
-                                            @endforeach
+                                            class="form-label fs-6 fw-bold mb-3 required">{{ __('general.expense_type') }}</label>
+                                        <select name="type" class="form-select form-select-solid" data-control="select2"
+                                            required>
+                                            <option value="operational">{{ __('general.operational') }}</option>
+                                            <option value="capital">{{ __('general.capital') }}</option>
                                         </select>
-                                    </div>
-                                </div>
-
-                                <div class="row gx-10 mb-5">
-                                    <div class="col-lg-12">
-                                        <label class="form-label fs-6 fw-bold text-gray-700 mb-3">{{ __('general.description') }}</label>
-                                        <textarea name="description" class="form-control form-control-solid" rows="3" 
-                                            placeholder="{{ __('general.description') }}"></textarea>
                                     </div>
                                 </div>
 
@@ -275,8 +255,8 @@
 
 @section('scripts')
     <script>
-        const clientsData = @json($clients);
-        const clientAddressesData = @json($clientAddresses);
+        const clientsData = {!! json_encode($clients) !!};
+        const clientAddressesData = {!! json_encode($clientAddresses ?? []) !!};
     </script>
     <script src="{{ asset('assets/js/models/finance/create.js') }}"></script>
 @endsection

@@ -62,6 +62,7 @@ return [
     'form_optional_data' => 'البيانات الاختيارية',
 
     // Titles - Custom
+    'addresses' => 'العناوين',
     'all_addresses' => 'جميع العناوين',
     'create_new_address' => 'إنشاء عنوان جديد',
     'update_current_address' => 'تحديث العنوان الحالي',
@@ -786,6 +787,14 @@ return [
     'event' => 'حدث',
     'contract' => 'العقود',
     'location' => 'الموقع',
+    
+    // Construction & Schedules
+    'no_schedules' => 'لا توجد مخططات تنفيذ',
+    'gantt_chart' => 'مخطط جانت',
+    'planned_dates' => 'التواريخ المخططة',
+    'actual_dates' => 'التواريخ الفعلية',
+    'no_tasks' => 'لا توجد مهام',
+    'Home' => 'الصفحة الرئيسية',
     'start_time' => 'وقت البدء',
     'end_time' => 'وقت الانتهاء',
     'starts' => 'يبدأ',

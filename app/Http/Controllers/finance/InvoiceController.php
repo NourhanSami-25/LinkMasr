@@ -45,7 +45,22 @@ class InvoiceController extends Controller
         $projects = Project::select('id', 'subject', 'client_id')->get();
 
         $users = User::select('id', 'name')->where('status', 'active')->get();
-        $clients = Client::with('address')->select('id', 'name', 'currency')->where('status', 'active')->get();
+        $clients = Client::select('id', 'name', 'currency')->where('status', 'active')->get();
+        
+        // Load addresses separately to avoid JSON serialization issues
+        $clientAddresses = [];
+        foreach ($clients as $client) {
+            $address = $client->address;
+            if ($address) {
+                $clientAddresses[$client->id] = [
+                    'street_name' => $address->street_name ?? '',
+                    'city' => $address->city ?? '',
+                    'state' => $address->state ?? '',
+                    'country' => $address->country ?? ''
+                ];
+            }
+        }
+        
         $currencies = Currency::select('code')->get();
         $paymentRequests = PaymentRequest::select('id', 'client_name', 'number', 'client_id')->get();
         $invoice_number = $this->invoiceFunctionController->calculate_invoice_number();
@@ -54,7 +69,7 @@ class InvoiceController extends Controller
         $selected_project_id = $request->project_id;
         $selected_task_id = $request->task_id;
 
-        return view('finance.invoice.create', compact('tasks', 'projects', 'users', 'clients', 'currencies', 'paymentRequests', 'invoice_number', 'selected_client_id', 'selected_project_id', 'selected_task_id'));
+        return view('finance.invoice.create', compact('tasks', 'projects', 'users', 'clients', 'clientAddresses', 'currencies', 'paymentRequests', 'invoice_number', 'selected_client_id', 'selected_project_id', 'selected_task_id'));
     }
 
 
@@ -82,13 +97,20 @@ class InvoiceController extends Controller
 
             if (isset($invoiceData['finance_items']) && is_array($invoiceData['finance_items'])) {
                 foreach ($items as $itemData) {
+                    // Calculate subtotal for each item
+                    $qty = isset($itemData['qty']) ? (float)$itemData['qty'] : 1;
+                    $amount = isset($itemData['amount']) ? (float)$itemData['amount'] : 0;
+                    $tax = isset($itemData['tax']) ? (float)$itemData['tax'] : 0;
+                    $taxAmount = ($tax / 100) * $amount;
+                    $subtotal = $qty * ($amount + $taxAmount);
+                    
                     $invoice->financeItems()->create([
                         'name' => $itemData['name'],
-                        'description' => $itemData['description'],
-                        'qty' => $itemData['qty'],
-                        'amount' => $itemData['amount'],
-                        'tax' => $itemData['tax'],
-                        'subtotal' => $itemData['subtotal'],
+                        'description' => $itemData['description'] ?? '',
+                        'qty' => $qty,
+                        'amount' => $amount,
+                        'tax' => $tax,
+                        'subtotal' => $subtotal,
                     ]);
                 }
             }

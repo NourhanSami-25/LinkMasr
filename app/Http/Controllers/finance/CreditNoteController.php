@@ -43,9 +43,25 @@ class CreditNoteController extends Controller
         
         $users = User::select('id', 'name')->where('status', 'active')->get();
         $clients = Client::with('address')->select('id', 'name', 'currency')->where('status', 'active')->get();
+        
+        // Load addresses separately to avoid JSON serialization issues
+        $clientAddresses = [];
+        foreach ($clients as $client) {
+            $address = $client->address;
+            if ($address) {
+                $clientAddresses[$client->id] = [
+                    'street_name' => $address->street_name ?? '',
+                    'city' => $address->city ?? '',
+                    'state' => $address->state ?? '',
+                    'zip_code' => $address->zip_code ?? '',
+                    'country' => $address->country ?? '',
+                ];
+            }
+        }
+        
         $currencies = Currency::select('code')->get();
         $creditNote_number = $this->creditNoteFunctionController->calculate_creditNote_number();
-        return view('finance.creditnote.create', compact('projects', 'tasks', 'users', 'clients', 'currencies', 'creditNote_number'));
+        return view('finance.creditnote.create', compact('projects', 'tasks', 'users', 'clients', 'clientAddresses', 'currencies', 'creditNote_number'));
     }
 
 

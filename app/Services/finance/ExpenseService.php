@@ -40,6 +40,16 @@ class ExpenseService
         $data['subtotal'] = $subtotal;
         $data['items_tax_value'] = $totalTax;
 
+        // Set default values for missing fields
+        $data['discount_type'] = $data['discount_type'] ?? 'none';
+        $data['discount_amount_type'] = $data['discount_amount_type'] ?? 'percentage';
+        $data['discount'] = $data['discount'] ?? 0;
+        $data['fixed_discount'] = $data['fixed_discount'] ?? 0;
+        $data['tax'] = $data['tax'] ?? 0;
+        $data['overall_tax_value'] = 0;
+        $data['total_discount'] = 0;
+        $data['percentage_discount_value'] = 0;
+
         if ($data['discount_type'] == 'before_tax' && $data['discount_amount_type'] == 'percentage') {
             $data['percentage_discount_value'] =  ($data['discount'] / 100) * ($data['subtotal']);
             $data['total_discount'] = $data['percentage_discount_value'];
@@ -62,6 +72,26 @@ class ExpenseService
         $data['total'] = $data['subtotal'] + $data['total_tax'] - ($data['total_discount'] ?? 0) + $adjustment;
 
         $data['created_by'] = Auth::id();
+        $data['user_id'] = Auth::id(); // Add user_id for backward compatibility
+        
+        // Set default values for required fields that might be null
+        if (empty($data['task_id'])) {
+            // Create a default task if none provided
+            $data['task_id'] = 1; // Assuming task with ID 1 exists
+        }
+        if (empty($data['project_id'])) {
+            $data['project_id'] = null;
+        }
+        if (empty($data['subject'])) {
+            $data['subject'] = $data['description'] ?? 'Expense';
+        }
+        if (empty($data['reference'])) {
+            $data['reference'] = $data['number'] ?? 1;
+        }
+        if (empty($data['amount'])) {
+            $data['amount'] = $data['total'] ?? 0;
+        }
+        
         $expense->fill($data);
         if ($data['client_id']) {
             $client_name = Client::find($data['client_id'])->name;
@@ -91,6 +121,16 @@ class ExpenseService
         }
         $data['subtotal'] = $subtotal;
         $data['items_tax_value'] = $totalTax;
+
+        // Set default values for missing fields
+        $data['discount_type'] = $data['discount_type'] ?? 'none';
+        $data['discount_amount_type'] = $data['discount_amount_type'] ?? 'percentage';
+        $data['discount'] = $data['discount'] ?? 0;
+        $data['fixed_discount'] = $data['fixed_discount'] ?? 0;
+        $data['tax'] = $data['tax'] ?? 0;
+        $data['overall_tax_value'] = 0;
+        $data['total_discount'] = 0;
+        $data['percentage_discount_value'] = 0;
 
         if ($data['discount_type'] == 'before_tax' && $data['discount_amount_type'] == 'percentage') {
             $data['percentage_discount_value'] =  ($data['discount'] / 100) * ($data['subtotal']);

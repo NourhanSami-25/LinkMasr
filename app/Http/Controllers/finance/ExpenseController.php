@@ -51,7 +51,22 @@ class ExpenseController extends Controller
         $projects = Project::select('id', 'subject', 'client_id')->get();
 
         $users = User::select('id', 'name')->where('status', 'active')->get();
-        $clients = Client::with('address')->select('id', 'name', 'currency')->where('status', 'active')->get();
+        $clients = Client::select('id', 'name', 'currency')->where('status', 'active')->get();
+        
+        // Load addresses separately to avoid JSON serialization issues
+        $clientAddresses = [];
+        foreach ($clients as $client) {
+            $address = $client->address;
+            if ($address) {
+                $clientAddresses[$client->id] = [
+                    'street_name' => $address->street_name ?? '',
+                    'city' => $address->city ?? '',
+                    'state' => $address->state ?? '',
+                    'country' => $address->country ?? ''
+                ];
+            }
+        }
+        
         $currencies = Currency::select('code')->get();
         $expense_number = $this->expenseFunctionController->calculate_expense_number();
 
@@ -59,7 +74,7 @@ class ExpenseController extends Controller
         $selected_project_id = $request->project_id;
         $selected_task_id = $request->task_id;
 
-        return view('finance.expense.create', compact('tasks', 'projects', 'users', 'clients', 'currencies', 'expense_number', 'selected_client_id', 'selected_project_id', 'selected_task_id'));
+        return view('finance.expense.create', compact('tasks', 'projects', 'users', 'clients', 'clientAddresses', 'currencies', 'expense_number', 'selected_client_id', 'selected_project_id', 'selected_task_id'));
     }
 
 
@@ -146,11 +161,26 @@ class ExpenseController extends Controller
         $projects = Project::select('id', 'subject', 'client_id')->get();
 
         $users = User::select('id', 'name')->where('status', 'active')->get();
-        $clients = Client::with('address')->select('id', 'name', 'currency')->where('status', 'active')->get();
+        $clients = Client::select('id', 'name', 'currency')->where('status', 'active')->get();
+        
+        // Load addresses separately to avoid JSON serialization issues
+        $clientAddresses = [];
+        foreach ($clients as $client) {
+            $address = $client->address;
+            if ($address) {
+                $clientAddresses[$client->id] = [
+                    'street_name' => $address->street_name ?? '',
+                    'city' => $address->city ?? '',
+                    'state' => $address->state ?? '',
+                    'country' => $address->country ?? ''
+                ];
+            }
+        }
+        
         $currencies = Currency::select('code')->get();
         $expense_number = $this->expenseFunctionController->calculate_expense_number();
         $items = $expense->financeItems;
-        return view('finance.expense.edit', compact('expense', 'tasks', 'projects', 'users', 'clients', 'currencies', 'expense_number', 'items'));
+        return view('finance.expense.edit', compact('expense', 'tasks', 'projects', 'users', 'clients', 'clientAddresses', 'currencies', 'expense_number', 'items'));
     }
 
 

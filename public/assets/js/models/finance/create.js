@@ -47,69 +47,38 @@ var KTAppInvoicesCreate = function () {
 			taxAmount = (taxValue / 100) * priceValue * quantityValue;
 
 			var subtotal = priceValue * quantityValue + taxAmount;
-			subtotalInput.value = subtotal.toFixed(2);
+			if (subtotalInput) {
+				subtotalInput.value = subtotal.toFixed(2);
+			}
 
-			item.querySelector('[data-kt-element="item-total"]').innerText = format.to(priceValue * quantityValue + taxAmount);
+			var itemTotalElement = item.querySelector('[data-kt-element="total"]');
+			if (itemTotalElement) {
+				itemTotalElement.innerText = format.to(priceValue * quantityValue + taxAmount);
+			}
 
 			grandTotal += priceValue * quantityValue + taxAmount;
 			total = grandTotal;
 		});
 
+		// Simple calculation without advanced discount/tax features
+		// Only calculate basic totals for now
+		var subTotalElement = form.querySelector('[data-kt-element="sub-total"]');
+		var grandTotalElement = form.querySelector('[data-kt-element="grand-total"]');
+		var grandTotalHiddenInput = form.querySelector('[data-kt-element="grand-total-hidden-input"]');
+		var invoiceTaxField = form.querySelector('[data-kt-element="invoice-tax-field"]');
 
-		// Calculate over all invoice Discount & Tax
-		var invoivePercentageDiscountValue = parseInt(invoicePercentageDiscount.value); // percentage value
-		var invoiveFixedDiscountValue = parseInt(invoiveFixedDiscount.value); // fixed value
-		var invoiveDiscountValue = 0;
-		var invoiveTaxValue = parseInt(invoiveTax.value);
-
-		invoivePercentageDiscountValue = (!invoivePercentageDiscountValue || invoivePercentageDiscountValue < 0) ? 0 : invoivePercentageDiscountValue;
-		invoiveFixedDiscountValue = (!invoiveFixedDiscountValue || invoiveFixedDiscountValue < 0) ? 0 : invoiveFixedDiscountValue;
-		invoiveTaxValue = (!invoiveTaxValue || invoiveTaxValue < 0) ? 0 : invoiveTaxValue;
-
-		if (discountType.value === 'after_tax' && discountAmount.value === 'percentage') {
-			// console.log('Case 1: After Tax + Percentage Discount');
-			invoiveTaxValue = (invoiveTaxValue / 100) * grandTotal;
-			invoivePercentageDiscountValue = (invoivePercentageDiscountValue / 100) * (grandTotal + invoiveTaxValue);
-			invoiveDiscountValue = invoivePercentageDiscountValue;
-			invoiveFixedDiscountValue = 0;
-
+		if (subTotalElement) {
+			subTotalElement.innerText = format.to(total);
 		}
-		else if (discountType.value === 'after_tax' && discountAmount.value === 'fixed_amount') {
-			// console.log('Case 2: After Tax + Fixed Amount Discount');
-			invoiveTaxValue = (invoiveTaxValue / 100) * grandTotal;
-			invoiveDiscountValue = invoiveFixedDiscountValue;
-			invoivePercentageDiscountValue = 0;
+		if (grandTotalElement) {
+			grandTotalElement.innerText = format.to(grandTotal);
 		}
-		else if (discountType.value === 'before_tax' && discountAmount.value === 'percentage') {
-			// console.log('Case 3: Before Tax + Percentage Discount');
-
-			invoivePercentageDiscountValue = (invoivePercentageDiscountValue / 100) * (grandTotal);
-			invoiveDiscountValue = invoivePercentageDiscountValue;
-			invoiveFixedDiscountValue = 0;
-			invoiveTaxValue = (invoiveTaxValue / 100) * (grandTotal - invoiveDiscountValue);
+		if (grandTotalHiddenInput) {
+			grandTotalHiddenInput.value = format.to(grandTotal);
 		}
-		else if (discountType.value === 'before_tax' && discountAmount.value === 'fixed_amount') {
-			// console.log('Case 4: Before Tax + Fixed Amount Discount');
-			invoiveDiscountValue = invoiveFixedDiscountValue;
-			invoivePercentageDiscountValue = 0;
-			invoiveTaxValue = (invoiveTaxValue / 100) * (grandTotal - invoiveDiscountValue);
+		if (invoiceTaxField) {
+			invoiceTaxField.innerText = "0.00";
 		}
-		else {
-			console.log('Unknown case'); // Optional fallback for unexpected values
-		}
-
-		// Calculate grand total after tax and discount
-		grandTotal += invoiveTaxValue - invoiveDiscountValue;
-		if (grandTotal < 0) {
-			grandTotal = 0;
-		}
-
-		form.querySelector('[data-kt-element="invoice-tax-field"]').innerText = format.to(invoiveTaxValue);
-		form.querySelector('[data-kt-element="invoice-discount-field"]').innerText = format.to(invoivePercentageDiscountValue);
-		form.querySelector('[data-kt-element="invoice-fixed-discount-field"]').innerText = format.to(invoiveFixedDiscountValue);
-		form.querySelector('[data-kt-element="sub-total"]').innerText = format.to(total);
-		form.querySelector('[data-kt-element="grand-total"]').innerText = format.to(grandTotal);
-		form.querySelector('[data-kt-element="grand-total-hidden-input"]').value = format.to(grandTotal);
 	}
 
 	var handleEmptyState = function () {
@@ -222,6 +191,7 @@ KTUtil.onDOMContentLoaded(function () {
 document.addEventListener('DOMContentLoaded', function () {
 	// Use clientsData from the global scope (passed from Blade)
 	const clients = clientsData;
+	const addresses = clientAddressesData || {};
 	const clientSelect = $('#clientSelect');
 	const clientAddress = document.getElementById('clientAddress');
 	const clientCurrencySelect = $('#clientCurrency');
@@ -241,12 +211,13 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (selectedClient) {
 
 			// Handle address
-			if (selectedClient.address) {
+			const clientAddressData = addresses[selectedClient.id];
+			if (clientAddressData) {
 				const addressComponents = [
-					selectedClient.address.street_name,
-					selectedClient.address.city,
-					selectedClient.address.state,
-					selectedClient.address.country
+					clientAddressData.street_name,
+					clientAddressData.city,
+					clientAddressData.state,
+					clientAddressData.country
 				];
 				const filteredComponents = addressComponents.filter(component => component); // Filter out empty/null components
 				const fullAddress = filteredComponents.join(' - '); // Join components with a separator

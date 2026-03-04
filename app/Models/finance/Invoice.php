@@ -47,7 +47,9 @@ class Invoice extends Model
         'total_tax',
         'total_discount',
         'total',
-        'created_by'
+        'created_by',
+        'user_id',
+        'payment_currency'
     ];
 
 

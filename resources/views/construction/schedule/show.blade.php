@@ -287,22 +287,40 @@
                 return;
             }
 
+            // Process tasks to ensure proper format
+            var processedTasks = tasks.map(function(task) {
+                return {
+                    id: task.id,
+                    name: task.name,
+                    start: task.start,
+                    end: task.end,
+                    progress: task.progress || 0,
+                    dependencies: task.dependencies || '',
+                    custom_class: task.custom_class || ''
+                };
+            });
+
             try {
-                ganttInstance = new Gantt('#gantt', tasks, {
+                ganttInstance = new Gantt('#gantt', processedTasks, {
                     view_mode: 'Week',
                     date_format: 'YYYY-MM-DD',
                     bar_height: 30,
                     padding: 18,
                     view_modes: ['Day', 'Week', 'Month'],
-                    language: 'ar',
                     on_click: function (task) {
                         console.log(task);
+                    },
+                    on_date_change: function(task, start, end) {
+                        console.log('Date changed:', task, start, end);
+                    },
+                    on_progress_change: function(task, progress) {
+                        console.log('Progress changed:', task, progress);
                     }
                 });
-                console.log('Gantt initialized');
+                console.log('Gantt initialized successfully');
             } catch (e) {
                 console.error('Gantt error:', e);
-                container.innerHTML = '<div class="alert alert-danger">' + e.message + '</div>';
+                container.innerHTML = '<div class="alert alert-danger">خطأ في تحميل مخطط جانت: ' + e.message + '</div>';
             }
         }
 

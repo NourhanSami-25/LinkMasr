@@ -33,7 +33,11 @@ class Contract extends Model
         'sale_agent',
         'total',
         'status',
-        'created_by'
+        'created_by',
+        'user_id', // For backward compatibility
+        'value', // For backward compatibility
+        'start_date', // For backward compatibility
+        'end_date' // For backward compatibility
     ];
 
     public function project(): BelongsTo

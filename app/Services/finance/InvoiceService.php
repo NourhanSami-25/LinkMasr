@@ -40,6 +40,16 @@ class InvoiceService
         $data['subtotal'] = $subtotal;
         $data['items_tax_value'] = $totalTax;
 
+        // Set default values for missing fields
+        $data['discount_type'] = $data['discount_type'] ?? 'none';
+        $data['discount_amount_type'] = $data['discount_amount_type'] ?? 'percentage';
+        $data['discount'] = $data['discount'] ?? 0;
+        $data['fixed_discount'] = $data['fixed_discount'] ?? 0;
+        $data['tax'] = $data['tax'] ?? 0;
+        $data['overall_tax_value'] = 0;
+        $data['total_discount'] = 0;
+        $data['percentage_discount_value'] = 0;
+
         if ($data['discount_type'] == 'before_tax' && $data['discount_amount_type'] == 'percentage') {
             $data['percentage_discount_value'] =  ($data['discount'] / 100) * ($data['subtotal']);
             $data['total_discount'] = $data['percentage_discount_value'];
@@ -56,8 +66,31 @@ class InvoiceService
             $data['total_discount'] = $data['fixed_discount'];
         }
         $data['total_tax'] =  $data['overall_tax_value'] +   $data['items_tax_value'];
+        
+        // Calculate final total: subtotal + total_tax - total_discount + adjustment
+        $adjustment = isset($data['adjustment']) ? (float)$data['adjustment'] : 0;
+        $data['total'] = $data['subtotal'] + $data['total_tax'] - ($data['total_discount'] ?? 0) + $adjustment;
 
         $data['created_by'] = Auth::id();
+        
+        // Backward compatibility: set user_id if it exists in the database
+        $data['user_id'] = Auth::id();
+        
+        // Set payment_currency to match currency for backward compatibility
+        $data['payment_currency'] = $data['currency'] ?? 'EGP';
+        
+        // Set default sale_agent if not provided
+        $data['sale_agent'] = $data['sale_agent'] ?? Auth::user()->name ?? 'Admin';
+        
+        // Set default values for required fields that might be null
+        if (empty($data['task_id'])) {
+            // Create a default task if none provided
+            $data['task_id'] = 1; // Assuming task with ID 1 exists
+        }
+        if (empty($data['project_id'])) {
+            $data['project_id'] = null;
+        }
+        
         $invoice->fill($data);
         if ($data['client_id']) {
             $client_name = Client::find($data['client_id'])->name;

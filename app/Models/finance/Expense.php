@@ -55,7 +55,11 @@ class Expense extends Model
         'package_date',
         'package_number',
         'total_balance',
-        'created_by'
+        'created_by',
+        'user_id', // Add for backward compatibility
+        'subject', // Add for backward compatibility
+        'reference', // Add for backward compatibility
+        'amount' // Add for backward compatibility
     ];
 
     public function project(): BelongsTo

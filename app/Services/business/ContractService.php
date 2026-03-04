@@ -19,6 +19,20 @@ class ContractService
     public function create(array $data)
     {
         $data['created_by'] = Auth::id();
+        // For backward compatibility with old database schema
+        $data['user_id'] = Auth::id();
+        // Map total to value for backward compatibility
+        if (isset($data['total'])) {
+            $data['value'] = $data['total'];
+        }
+        // Map date fields for backward compatibility
+        if (isset($data['date'])) {
+            $data['start_date'] = $data['date'];
+        }
+        if (isset($data['due_date'])) {
+            $data['end_date'] = $data['due_date'];
+        }
+        
         $contract = new Contract();
         $contract->fill($data);
         if ($data['client_id']) {

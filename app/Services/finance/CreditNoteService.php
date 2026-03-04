@@ -58,6 +58,10 @@ class CreditNoteService
         $data['total_tax'] =  $data['overall_tax_value'] +   $data['items_tax_value'];
 
         $data['created_by'] = Auth::id();
+        $data['user_id'] = Auth::id(); // For backward compatibility
+        
+        // Set payment_currency to match currency for backward compatibility
+        $data['payment_currency'] = $data['currency'] ?? 'EGP';
         $creditNote->fill($data);
         if ($data['client_id']) {
             $client_name = Client::find($data['client_id'])->name;

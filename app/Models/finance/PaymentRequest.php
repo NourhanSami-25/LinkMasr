@@ -23,12 +23,14 @@ class PaymentRequest extends Model
         'client_name',
         'billing_address',
         'number',
+        'reference',
         'is_repeated',
         'repeat_every',
         'repeat_counter',
         'date',
         'due_date',
         'currency',
+        'payment_currency',
         'sale_agent',
         'discount_type',
         'discount_amount_type',
@@ -48,7 +50,8 @@ class PaymentRequest extends Model
         'total_tax',
         'total_discount',
         'total',
-        'created_by'
+        'created_by',
+        'user_id'
     ];
 
     public function project(): BelongsTo

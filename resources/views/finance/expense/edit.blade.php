@@ -256,7 +256,8 @@
 
 @section('scripts')
     <script>
-        const clientsData = @json($clients);
+        const clientsData = {!! json_encode($clients) !!};
+        const clientAddressesData = {!! json_encode($clientAddresses ?? []) !!};
     </script>
     <script src="{{ asset('assets/js/models/finance/create.js') }}"></script>
 @endsection

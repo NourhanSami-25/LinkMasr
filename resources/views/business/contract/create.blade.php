@@ -200,7 +200,7 @@
 																<div class="mb-5">
 																	<input type="text"
 																		class="form-control form-control-solid"
-																		placeholder="{{ __('general.our_address') }}" value="{{ app(App\Services\setting\CompanyProfileService::class)->get()->address }}" data-required="true"/>
+																		placeholder="{{ __('general.our_address') }}" value="{{ app(App\Services\setting\CompanyProfileService::class)->get()?->address ?? '' }}" data-required="true"/>
 																</div>
 																<!--end::Input group-->
 															</div>
