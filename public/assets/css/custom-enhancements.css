@@ -1,67 +1,159 @@
-/* Custom enhancements - temporarily disabled */
+/* Custom enhancements - Light and Dark Mode Support */
 
-/* Fix Pagination Buttons Color */
-.page-item .page-link {
+/* ============================================ */
+/* LIGHT MODE STYLES */
+/* ============================================ */
+
+/* Fix Pagination Buttons Color - Light Mode */
+[data-bs-theme="light"] .page-item .page-link {
     color: #181C32 !important;
 }
-.page-item.previous .page-link, .page-item.next .page-link {
+[data-bs-theme="light"] .page-item.previous .page-link, 
+[data-bs-theme="light"] .page-item.next .page-link {
     color: #181C32 !important;
 }
-.page-item.disabled .page-link {
+[data-bs-theme="light"] .page-item.disabled .page-link {
     color: #A1A5B7 !important;
 }
 
-/* UNIVERSIAL TEXT CONTRAST ENHANCEMETS */
-/* Force all standard gray text classes to be black for better visibility */
+/* LIGHT MODE TEXT CONTRAST ENHANCEMENTS */
+/* Force all standard gray text classes to be black for better visibility in light mode */
 
-/* General Utility Classes */
-.text-muted,
-.text-gray-100,
-.text-gray-200,
-.text-gray-300,
-.text-gray-400,
-.text-gray-500,
-.text-gray-600,
-.text-gray-700,
-.text-gray-800 {
+/* General Utility Classes - Light Mode */
+[data-bs-theme="light"] .text-muted,
+[data-bs-theme="light"] .text-gray-100,
+[data-bs-theme="light"] .text-gray-200,
+[data-bs-theme="light"] .text-gray-300,
+[data-bs-theme="light"] .text-gray-400,
+[data-bs-theme="light"] .text-gray-500,
+[data-bs-theme="light"] .text-gray-600,
+[data-bs-theme="light"] .text-gray-700,
+[data-bs-theme="light"] .text-gray-800 {
     color: #181C32 !important; /* Metronic Dark / Black */
 }
 
-/* Specific Component Overrides */
-.form-label, 
-.col-form-label, 
-.fw-semibold.text-gray-600,
-.fw-bold.text-gray-600,
-.fw-semibold.text-gray-500,
-.fw-bold.text-gray-500 {
+/* Specific Component Overrides - Light Mode */
+[data-bs-theme="light"] .form-label, 
+[data-bs-theme="light"] .col-form-label, 
+[data-bs-theme="light"] .fw-semibold.text-gray-600,
+[data-bs-theme="light"] .fw-bold.text-gray-600,
+[data-bs-theme="light"] .fw-semibold.text-gray-500,
+[data-bs-theme="light"] .fw-bold.text-gray-500 {
     color: #181C32 !important;
 }
 
-/* Nav Links - Default state */
-.nav-link {
+/* Nav Links - Light Mode */
+[data-bs-theme="light"] .nav-link {
     color: #181C32 !important;
 }
-/* Ensure Active Nav Links keep their primary color (usually blue) */
-.nav-link.active, .nav-link:hover {
+[data-bs-theme="light"] .nav-link.active, 
+[data-bs-theme="light"] .nav-link:hover {
     color: #009ef7 !important; /* Metronic Primary Blue */
 }
 
-/* Breadcrumbs */
-.breadcrumb-item, .breadcrumb-item a {
+/* Breadcrumbs - Light Mode */
+[data-bs-theme="light"] .breadcrumb-item, 
+[data-bs-theme="light"] .breadcrumb-item a {
     color: #181C32 !important;
 }
-.breadcrumb-item.text-muted {
-    color: #181C32 !important;
-}
-
-/* Table Headers */
-th.text-gray-400, td.text-gray-400,
-tr.text-gray-400 th, tr.text-gray-400 td {
+[data-bs-theme="light"] .breadcrumb-item.text-muted {
     color: #181C32 !important;
 }
 
-/* File Manager / Icons labels */
-.file-name, .file-size, .file-date {
+/* Table Headers - Light Mode */
+[data-bs-theme="light"] th.text-gray-400, 
+[data-bs-theme="light"] td.text-gray-400,
+[data-bs-theme="light"] tr.text-gray-400 th, 
+[data-bs-theme="light"] tr.text-gray-400 td {
     color: #181C32 !important;
+}
+
+/* File Manager / Icons labels - Light Mode */
+[data-bs-theme="light"] .file-name, 
+[data-bs-theme="light"] .file-size, 
+[data-bs-theme="light"] .file-date {
+    color: #181C32 !important;
+}
+
+/* ============================================ */
+/* DARK MODE STYLES */
+/* ============================================ */
+
+/* Fix Pagination Buttons Color - Dark Mode */
+[data-bs-theme="dark"] .page-item .page-link {
+    color: #E4E6EF !important;
+}
+[data-bs-theme="dark"] .page-item.previous .page-link, 
+[data-bs-theme="dark"] .page-item.next .page-link {
+    color: #E4E6EF !important;
+}
+[data-bs-theme="dark"] .page-item.disabled .page-link {
+    color: #565674 !important;
+}
+
+/* DARK MODE TEXT CONTRAST ENHANCEMENTS */
+/* Force all standard gray text classes to be light for better visibility in dark mode */
+
+/* General Utility Classes - Dark Mode */
+[data-bs-theme="dark"] .text-muted,
+[data-bs-theme="dark"] .text-gray-100,
+[data-bs-theme="dark"] .text-gray-200,
+[data-bs-theme="dark"] .text-gray-300,
+[data-bs-theme="dark"] .text-gray-400,
+[data-bs-theme="dark"] .text-gray-500,
+[data-bs-theme="dark"] .text-gray-600,
+[data-bs-theme="dark"] .text-gray-700,
+[data-bs-theme="dark"] .text-gray-800,
+[data-bs-theme="dark"] .text-gray-900 {
+    color: #E4E6EF !important; /* Light gray for dark mode */
+}
+
+/* Specific Component Overrides - Dark Mode */
+[data-bs-theme="dark"] .form-label, 
+[data-bs-theme="dark"] .col-form-label, 
+[data-bs-theme="dark"] .fw-semibold.text-gray-600,
+[data-bs-theme="dark"] .fw-bold.text-gray-600,
+[data-bs-theme="dark"] .fw-semibold.text-gray-500,
+[data-bs-theme="dark"] .fw-bold.text-gray-500 {
+    color: #E4E6EF !important;
+}
+
+/* Nav Links - Dark Mode */
+[data-bs-theme="dark"] .nav-link {
+    color: #E4E6EF !important;
+}
+[data-bs-theme="dark"] .nav-link.active, 
+[data-bs-theme="dark"] .nav-link:hover {
+    color: #009ef7 !important; /* Metronic Primary Blue */
+}
+
+/* Breadcrumbs - Dark Mode */
+[data-bs-theme="dark"] .breadcrumb-item, 
+[data-bs-theme="dark"] .breadcrumb-item a {
+    color: #E4E6EF !important;
+}
+[data-bs-theme="dark"] .breadcrumb-item.text-muted {
+    color: #A1A5B7 !important;
+}
+
+/* Table Headers - Dark Mode */
+[data-bs-theme="dark"] th.text-gray-400, 
+[data-bs-theme="dark"] td.text-gray-400,
+[data-bs-theme="dark"] tr.text-gray-400 th, 
+[data-bs-theme="dark"] tr.text-gray-400 td {
+    color: #E4E6EF !important;
+}
+
+/* Table Body Text - Dark Mode */
+[data-bs-theme="dark"] tbody.fw-semibold.text-gray-800,
+[data-bs-theme="dark"] tbody .fw-semibold {
+    color: #E4E6EF !important;
+}
+
+/* File Manager / Icons labels - Dark Mode */
+[data-bs-theme="dark"] .file-name, 
+[data-bs-theme="dark"] .file-size, 
+[data-bs-theme="dark"] .file-date {
+    color: #E4E6EF !important;
 }
 

@@ -1,4 +1,6 @@
 
+
+
 <div id="kt_app_header" class="app-header d-flex flex-column flex-stack">
     <!--begin::Header main-->
     <div class="d-flex flex-stack flex-grow-1">
@@ -25,7 +27,7 @@
                 <img alt="Logo" src="{{ asset('assets/media/logos/logo_dark.webp') }}"
                     class="h-30px theme-light-show" />
                 <img alt="Logo" src="{{ asset('assets/media/logos/logo_dark.webp') }}"
-                    class="h-30px theme-dark-show" />
+                    class="h-30px theme-dark-show" style="filter: invert(1) hue-rotate(180deg) saturate(3) brightness(0.9) contrast(1.1);" />
             </a>
             <!--end::Logo-->
 
