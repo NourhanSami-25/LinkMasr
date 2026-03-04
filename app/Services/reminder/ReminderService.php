@@ -47,6 +47,20 @@ class ReminderService
     public function createReminder($data)
     {
         $data['created_by'] = Auth::id();
+        $data['user_id'] = Auth::id(); // Set user_id to current authenticated user
+        
+        // Set default assigned_to if not provided
+        if (!isset($data['assigned_to']) || empty($data['assigned_to'])) {
+            $data['assigned_to'] = json_encode([Auth::id()]);
+        } elseif (is_array($data['assigned_to'])) {
+            $data['assigned_to'] = json_encode($data['assigned_to']);
+        }
+        
+        // Set default description if not provided
+        if (!isset($data['description']) || empty($data['description'])) {
+            $data['description'] = $data['subject'] ?? 'تنبيه جديد';
+        }
+        
         if (!empty($data['members'])) {
             $data['members'] = json_encode($data['members']);
         }

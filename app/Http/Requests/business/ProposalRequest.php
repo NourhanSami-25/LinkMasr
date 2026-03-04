@@ -27,7 +27,7 @@ class ProposalRequest extends FormRequest
             'project_id'   => 'nullable|exists:projects,id',
             'task_id'      => 'nullable|exists:tasks,id',
             'client_id'    => 'nullable|exists:clients,id',
-            'number'       => 'required|integer|unique:invoices,number',
+            'number'       => 'required|integer|unique:proposals,number',
             'subject'      => 'required|string|max:255',
             'description'  => 'nullable|string|max:1024',
             'date'         => 'required|date',

@@ -152,6 +152,7 @@
                                            data-previous="{{ $item->previous_qty }}"
                                            data-max="{{ $item->remaining_qty }}"
                                            onchange="calculateRow(this)">
+                                    <input type="hidden" name="items[{{ $index }}][unit_price]" value="{{ $item->unit_price }}">
                                 </td>
                                 <td class="text-center cumulative-qty">{{ number_format($item->previous_qty, 2) }}</td>
                                 <td class="text-center">{{ number_format($item->unit_price, 2) }}</td>

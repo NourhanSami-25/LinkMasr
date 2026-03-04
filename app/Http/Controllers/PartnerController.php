@@ -45,6 +45,49 @@ class PartnerController extends Controller
     }
 
     /**
+     * Admin: Create New Partner (User) and optionally add to project
+     */
+    public function createPartner(Request $request)
+    {
+        $this->authorize('accesspartners', ['create']);
+        
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'nullable|string|max:20',
+            'password' => 'required|string|min:6',
+            'address' => 'nullable|string',
+            'project_id' => 'nullable|exists:projects,id',
+            'share_percentage' => 'nullable|numeric|min:0|max:100',
+            'management_fee_percentage' => 'nullable|numeric|min:0|max:100',
+        ]);
+
+        // Create the user
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? null,
+            'password' => bcrypt($validated['password']),
+            'address' => $validated['address'] ?? null,
+            'department_id' => 1, // Default to Administration department
+            'position_id' => 1, // Default to Administrator position
+            'role_id' => 1, // Default to Administrator role
+            'status' => 'active',
+        ]);
+
+        // If project is selected, add as partner
+        if ($validated['project_id'] && $validated['share_percentage'] !== null && $validated['management_fee_percentage'] !== null) {
+            $project = Project::findOrFail($validated['project_id']);
+            $project->partners()->attach($user->id, [
+                'share_percentage' => $validated['share_percentage'],
+                'management_fee_percentage' => $validated['management_fee_percentage'],
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'تم إنشاء الشريك بنجاح' . ($validated['project_id'] ? ' وإضافته للمشروع' : ''));
+    }
+
+    /**
      * Admin: Add Partner to Project
      */
     public function addPartner(Request $request, $projectId)

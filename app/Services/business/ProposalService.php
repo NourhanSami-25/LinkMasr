@@ -18,6 +18,9 @@ class ProposalService
     public function create(array $data)
     {
         $data['created_by'] = Auth::id();
+        $data['user_id'] = Auth::id(); // Add user_id
+        $data['related'] = 'proposal'; // Add default related value
+        $data['payment_currency'] = $data['currency'] ?? 'EGP'; // Add payment_currency
         $proposal = new Proposal();
         $proposal->fill($data);
         if ($data['client_id']) {

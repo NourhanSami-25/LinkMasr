@@ -93,12 +93,12 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->boq->code ?? '-' }}</td>
-                            <td>{{ $item->description }}</td>
+                            <td>{{ $item->boq->description ?? '' }}</td>
                             <td class="text-center">{{ number_format($item->previous_qty, 2) }}</td>
                             <td class="text-center">{{ number_format($item->current_qty, 2) }}</td>
                             <td class="text-center">{{ number_format($item->cumulative_qty, 2) }}</td>
                             <td class="text-center">{{ number_format($item->unit_price, 2) }}</td>
-                            <td class="text-end">{{ number_format($item->current_amount, 2) }}</td>
+                            <td class="text-end">{{ number_format($item->amount, 2) }}</td>
                         </tr>
                         @endforeach
                     </tbody>

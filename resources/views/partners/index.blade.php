@@ -275,6 +275,94 @@
     </div>
 </div>
 
+<!-- Add New Partner Modal -->
+<div class="modal fade" id="addNewPartnerModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="{{ route('partners.create') }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __('general.add_new_partner') ?? 'إضافة شريك جديد' }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label required">{{ __('general.name') ?? 'الاسم' }}</label>
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label required">{{ __('general.email') ?? 'البريد الإلكتروني' }}</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">{{ __('general.phone') ?? 'الهاتف' }}</label>
+                                <input type="text" name="phone" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label required">{{ __('general.password') ?? 'كلمة المرور' }}</label>
+                                <input type="password" name="password" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('general.address') ?? 'العنوان' }}</label>
+                        <textarea name="address" class="form-control" rows="2"></textarea>
+                    </div>
+                    
+                    <hr class="my-4">
+                    <h6 class="mb-3">{{ __('general.add_to_project') ?? 'إضافة إلى مشروع' }} ({{ __('general.optional') ?? 'اختياري' }})</h6>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">{{ __('general.project') ?? 'المشروع' }}</label>
+                                <select name="project_id" class="form-select">
+                                    <option value="">{{ __('general.select') ?? 'اختر' }}...</option>
+                                    @foreach($projects as $project)
+                                        <option value="{{ $project->id }}">{{ $project->subject }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">{{ __('general.share_percentage') ?? 'نسبة الشراكة' }}</label>
+                                <div class="input-group">
+                                    <input type="number" name="share_percentage" class="form-control" step="0.01" min="0" max="100">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">{{ __('general.management_fee_percentage') ?? 'نسبة أتعاب الإدارة' }}</label>
+                                <div class="input-group">
+                                    <input type="number" name="management_fee_percentage" class="form-control" step="0.01" min="0" max="100">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('general.cancel') ?? 'إلغاء' }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('general.add') ?? 'إضافة' }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Help Offcanvas -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="helpOffcanvas" style="width: 450px;">
     <div class="offcanvas-header bg-primary">

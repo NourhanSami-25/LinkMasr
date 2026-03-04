@@ -13,16 +13,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Proposal extends Model
 {
     protected $fillable = [
+        'user_id',
         'project_id',
         'task_id',
         'client_id',
         'client_name',
         'number',
         'subject',
+        'related',
         'description',
         'date',
         'due_date',
+        'open_till',
         'currency',
+        'discount_type',
+        'payment_currency',
+        'tags',
+        'assigned',
         'sale_agent',
         'message',
         'total',

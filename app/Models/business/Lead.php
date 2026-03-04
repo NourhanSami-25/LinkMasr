@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Lead extends Model
 {
     protected $fillable = [
-  
         'client_name',
         'address',
         'number',
@@ -24,7 +23,15 @@ class Lead extends Model
         'sale_agent',
         'created_since',
         'status',
-        'created_by'
+        'created_by',
+        'lead_name',
+        'position',
+        'is_public',
+        'description',
+        'assigned',
+        'tags',
+        'user_id',
+        'client_id'
     ];
 
    

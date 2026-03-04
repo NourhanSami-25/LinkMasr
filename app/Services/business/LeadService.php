@@ -18,6 +18,20 @@ class LeadService
     public function create(array $data)
     {
         $data['created_by'] = Auth::id();
+        $data['user_id'] = Auth::id(); // Set user_id for compatibility
+        $data['client_id'] = 1; // Set default client_id
+        $data['created_since'] = $data['date'] ?? now(); // Use date field or current time
+        
+        // Set default status if not provided
+        if (!isset($data['status'])) {
+            $data['status'] = 'in_progress';
+        }
+        
+        // Set lead_name from client_name if not provided
+        if (!isset($data['lead_name']) || empty($data['lead_name'])) {
+            $data['lead_name'] = $data['client_name'] ?? 'عميل محتمل';
+        }
+        
         $lead = new Lead();
         $lead->fill($data);
         $lead->save();

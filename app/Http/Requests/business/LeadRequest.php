@@ -24,18 +24,17 @@ class LeadRequest extends FormRequest
         $isUpdate = $this->method() === 'PUT' || $this->method() === 'PATCH';
 
         return [
-        
             'client_name'     => 'required|string|max:255',
-            'address'         => 'nullable|string|max:255',
+            'address'         => 'required|string|max:255',
             'number'          => 'required|integer|min:1',
             'subject'         => 'required|string|max:255',
             'email'           => 'nullable|email|max:50',
             'website'         => 'nullable|max:255',
             'phone'           => 'nullable|string|max:20',
-            'lead_value'      => 'nullable|numeric|min:0',
-            'source'          => 'required|string|max:20',
+            'lead_value'      => 'required|numeric|min:0',
+            'source'          => 'required|string|max:50',
             'sale_agent'      => 'nullable|exists:users,id',
-            'created_since'   => 'nullable|date',
+            'date'            => 'nullable|date',
             'status'          => 'nullable|string|max:20',
             'created_by'      => 'nullable|exists:users,id',
         ];

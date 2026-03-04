@@ -79,8 +79,8 @@
                             @endphp
                             <tr>
                                 <td><strong>{{ $project->subject }}</strong></td>
-                                <td>{{ $partnerData->pivot->capital_share ?? 0 }}%</td>
-                                <td>{{ $partnerData->pivot->management_fee ?? 0 }}%</td>
+                                <td>{{ $partnerData->pivot->share_percentage ?? 0 }}%</td>
+                                <td>{{ $partnerData->pivot->management_fee_percentage ?? 0 }}%</td>
                                 <td>
                                     <span class="badge badge-light-success fs-7 fw-bold">{{ __('نشط') }}</span>
                                 </td>

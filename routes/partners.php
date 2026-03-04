@@ -6,6 +6,7 @@ use App\Http\Controllers\PartnerController;
 Route::middleware(['auth', 'verified'])->prefix('partners')->group(function () {
     // Admin: Partners Management
     Route::get('/', [PartnerController::class, 'index'])->name('partners.index');
+    Route::post('create', [PartnerController::class, 'createPartner'])->name('partners.create');
     Route::post('projects/{project}/add', [PartnerController::class, 'addPartner'])->name('partners.add');
     Route::put('projects/{project}/partner/{partner}', [PartnerController::class, 'updatePartner'])->name('partners.update');
     Route::post('withdrawals', [PartnerController::class, 'storeWithdrawal'])->name('partners.withdrawals.store');

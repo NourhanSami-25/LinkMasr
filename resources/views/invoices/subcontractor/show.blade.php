@@ -96,12 +96,17 @@
                         @foreach($invoice->items as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->description }}</td>
+                            <td>
+                                @if($item->subcontractItem && $item->subcontractItem->boq)
+                                    <strong>{{ $item->subcontractItem->boq->code }}</strong><br>
+                                @endif
+                                {{ $item->subcontractItem->description ?? '' }}
+                            </td>
                             <td class="text-center">{{ number_format($item->previous_qty, 2) }}</td>
                             <td class="text-center">{{ number_format($item->current_qty, 2) }}</td>
                             <td class="text-center">{{ number_format($item->cumulative_qty, 2) }}</td>
                             <td class="text-center">{{ number_format($item->unit_price, 2) }}</td>
-                            <td class="text-end">{{ number_format($item->current_amount, 2) }}</td>
+                            <td class="text-end">{{ number_format($item->amount, 2) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
