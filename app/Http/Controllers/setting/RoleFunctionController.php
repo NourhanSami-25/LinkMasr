@@ -17,9 +17,9 @@ class RoleFunctionController extends Controller
     {
         $this->authorize('accesssetting', ['view']);
         $users = User::with(['roles' => function ($query) {
-            $query->select('roles.id', 'roles.subject', 'role_user.access_level');
-        }])->select('id', 'name', 'department_id', 'position_id')->get();
-        $positions = Position::select('subject')->get();
+            $query->select('roles.id', 'roles.name', 'role_user.access_level');
+        }, 'department', 'positionRelation'])->select('id', 'name', 'department_id', 'position_id')->get();
+        $positions = Position::select('name')->get();
 
         return view('setting.role.users_role_index', compact('users', 'positions'));
     }

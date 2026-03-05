@@ -206,7 +206,7 @@
 												@foreach($sectors as $sector)
 												<tr>
 													<td class="text-start">{{$sector->id}}</td>
-													<td class="text-start">{{ __("general." . strtolower(str_replace(" ", "_", $sector->subject))) }}</td>
+													<td class="text-start">{{ $sector->subject }}</td>
 													<td class="text-start">{{__getUserNameById($sector->manager_id)?? __('general.not_exists')}}</td>
 													<td class="text-start">{{$sector->created_at}}</td>
 													<td class="text-end">

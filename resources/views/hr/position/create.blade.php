@@ -136,9 +136,9 @@
 																	<label class="required form-label">{{ __('general.subject') }}</label>
 																	<!--end::Label-->
 																	<!--begin::Input-->
-																	<input type="text" name="subject" data-label="{{ __('general.subject') }}" class="form-control mb-2" 
-                                                                        value="{{ old('subject') }}" 
-                                                                        data-required="true" data-minlength="2" data-maxlength="255"
+																	<input type="text" name="name" data-label="{{ __('general.subject') }}" class="form-control mb-2" 
+                                                                        value="{{ old('name') }}" 
+                                                                        data-required="true" data-minlength="2" data-maxlength="20"
                                                                         oninput="this.value = this.value.toLowerCase();"/>
 																	<!--end::Input-->
 																</div>

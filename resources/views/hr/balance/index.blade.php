@@ -199,7 +199,7 @@
 													<td class="text-start">{{$balance->id}}</td>
 													<td class="text-start">{{__getUserNameById($balance->user_id)?? __('general.not_exists')}}</td>
 													<td class="text-start">{{$balance->year}}</td>
-													<td class="text-start">{{ $balance->user && $balance->user->department ? __("general." . strtolower(str_replace(" ", "_", $balance->user->department->subject))) : __("general.not_exist") }}</td>	
+													<td class="text-start">{{ $balance->user && $balance->user->department ? $balance->user->department->subject : __("general.not_exist") }}</td>	
 													<td class="text-start">{{ rtrim(rtrim(number_format($balance->total_days, 2, '.', ''), '0'), '.') }}</td>
 													<td class="text-start">{{ rtrim(rtrim(number_format($balance->used_days, 2, '.', ''), '0'), '.') }}</td>
 													<td class="text-start">{{ max(0, $balance->total_days - $balance->used_days) }}</td>

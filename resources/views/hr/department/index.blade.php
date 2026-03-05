@@ -202,7 +202,7 @@
 												@foreach($departments as $department)
 												<tr>
 													<td class="text-start">{{$department->id}}</td>
-													<td class="text-start">{{ __("general." . strtolower(str_replace(" ", "_", $department->subject))) }}</td>
+													<td class="text-start">{{ $department->subject }}</td>
 													<td class="text-start">{{__getUserNameById($department->manager_id)?? __('general.not_exists')}}</td>
 													<td class="text-start">
 														<div class="badge 
@@ -211,7 +211,7 @@
 															{{ __('general.' . $department->status) }}
 														</div>
 													</td>		
-													<td class="text-start">{{ $department->sector ? __('general.' . strtolower(str_replace(' ', '_', $department->sector->subject))) : __('general.not_exist') }}</td>
+													<td class="text-start">{{ $department->sector ? $department->sector->subject : __('general.not_exist') }}</td>
 													<td class="text-start">{{$department->email}}</td>
 													<td class="text-start">{{$department->created_at}}</td>
 													<td class="text-end">

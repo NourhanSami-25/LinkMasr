@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('money_requests', function (Blueprint $table) {
-            $table->renameColumn('date', 'start_date');
-            $table->renameColumn('due_date', 'end_date');
+        Schema::table('announcements', function (Blueprint $table) {
+            $table->integer('expire_after')->nullable()->after('status');
+            $table->unsignedBigInteger('created_by')->nullable()->after('show_name');
         });
     }
 
@@ -22,9 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('money_requests', function (Blueprint $table) {
-            $table->renameColumn('start_date', 'date');
-            $table->renameColumn('end_date', 'due_date');
+        Schema::table('announcements', function (Blueprint $table) {
+            $table->dropColumn(['expire_after', 'created_by']);
         });
     }
 };

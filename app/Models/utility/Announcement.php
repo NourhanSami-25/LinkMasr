@@ -14,6 +14,7 @@ class Announcement extends Model
         'show_staff',
         'show_clients',
         'show_name',
-        'created_by'
+        'created_by',
+        'user_id'
     ];
 }

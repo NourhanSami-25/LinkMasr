@@ -31,7 +31,8 @@ class ExchangeRateController extends Controller
     {
         $this->authorize('accesssetting', ['create']);
         $currencies = Currency::select('code')->get();
-        return view('setting.exchange_rate.create', compact('currencies'));
+        $companyProfile = \App\Models\setting\CompanyProfile::first();
+        return view('setting.exchange_rate.create', compact('currencies', 'companyProfile'));
     }
 
 
@@ -50,7 +51,8 @@ class ExchangeRateController extends Controller
         $this->authorize('accesssetting', ['modify']);
         $exchangeRate = ExchangeRate::findOrFail($id);
         $currencies = Currency::select('code')->get();
-        return view('setting.exchange_rate.edit', compact('exchangeRate' , 'currencies'));
+        $companyProfile = \App\Models\setting\CompanyProfile::first();
+        return view('setting.exchange_rate.edit', compact('exchangeRate' , 'currencies', 'companyProfile'));
     }
 
 

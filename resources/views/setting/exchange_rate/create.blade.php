@@ -30,7 +30,10 @@
 	data-kt-app-aside-push-footer="true" class="app-default" data-kt-app-sidebar-minimize="on">
 	
 	@php
-    	$companyProfile = cache('company_profile');
+    	// Use the companyProfile passed from controller, fallback to cache if needed
+    	if (!isset($companyProfile)) {
+    		$companyProfile = cache('company_profile') ?: \App\Models\setting\CompanyProfile::first();
+    	}
 	@endphp
 	
 	@include('assets.dark_mode')

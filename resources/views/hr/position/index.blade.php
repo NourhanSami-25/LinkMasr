@@ -203,7 +203,7 @@
 												@foreach($positions as $position)
 												<tr>
 													<td class="text-start">{{$position->id}}</td>
-													<td class="text-start">{{ __("general." . strtolower(str_replace(" ", "_", $position->subject))) }}</td>
+													<td class="text-start">{{ $position->name }}</td>
 													<td class="text-start">{{$position->created_at}}</td>
 													<td class="text-end">
 														<a href="#"
@@ -229,7 +229,7 @@
 																	@csrf
 																	@method('DELETE')
 																	<div class="menu-item">
-																		<button type="button" onclick="showConfirmation('{{ addslashes($position->subject) }}', '{{ $position->id }}');" class="dropdown-item menu-link fw-bold text-danger">{{ __('general.delete') }}</button>
+																		<button type="button" onclick="showConfirmation('{{ addslashes($position->name) }}', '{{ $position->id }}');" class="dropdown-item menu-link fw-bold text-danger">{{ __('general.delete') }}</button>
 																	</div>
 																</form>
 															</div>

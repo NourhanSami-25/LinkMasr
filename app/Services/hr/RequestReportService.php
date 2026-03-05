@@ -32,11 +32,17 @@ class RequestReportService
 
         foreach ($types as $key => $model) {
             if (!$type || $type === $key) {
-                $requests = $requests->merge(
-                    $model::with('user')
-                        ->select('*', DB::raw("'$key' as request_type"))
-                        ->get()
-                );
+                $modelRequests = $model::with('user')
+                    ->select('*', DB::raw("'$key' as request_type"))
+                    ->get()
+                    ->map(function ($request) {
+                        // توحيد أسماء الحقول
+                        $request->date = $request->start_date ?? $request->date ?? null;
+                        $request->due_date = $request->end_date ?? $request->due_date ?? null;
+                        return $request;
+                    });
+                
+                $requests = $requests->merge($modelRequests);
             }
         }
 

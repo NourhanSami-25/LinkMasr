@@ -29,7 +29,7 @@ class UserService
 
     public function getAll()
     {
-        return User::with(['department:id,subject', 'position:id,subject'])->get();
+        return User::with(['department:id,subject', 'positionRelation:id,subject'])->get();
     }
 
     public function create(array $data)

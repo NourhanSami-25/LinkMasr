@@ -217,8 +217,8 @@
 														<a href="{{route('users.show' , $user->id)}}" class="text-primary-900 text-hover-primary">
 														@endhasAccess	
 															{{$user->name}}</a></td>
-													<td class="text-start">{{ ($subject = __getDepartmentSubjectById($user->department_id)) ? __('general.' . str_replace(' ', '_', strtolower($subject))) : __('general.not_exists') }}</td>
-													<td class="text-start">{{ ($subject = __getPositionSubjectById($user->position_id)) ? __('general.' . str_replace(' ', '_', strtolower($subject))) : __('general.not_exists') }}</td>
+													<td class="text-start">{{ $user->department ? $user->department->name : __('general.not_exists') }}</td>
+													<td class="text-start">{{ $user->positionRelation ? $user->positionRelation->name : __('general.not_exists') }}</td>
 													<td class="text-start">
 													    @if($user->isAdmin())
 													        <span class="badge badge-light-success">{{ __('general.admin') }}</span>

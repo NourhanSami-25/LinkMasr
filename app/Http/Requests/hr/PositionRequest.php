@@ -12,16 +12,16 @@ class PositionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => 'required|string|max:255',
+            'name' => 'required|string|max:20',
         ];
     }
 
     public function messages()
     {
         return [
-            'subject.required' => 'The subject field is required.',
-            'subject.string' => 'The subject must be a valid string.',
-            'subject.max' => 'The subject must not exceed 255 characters.',
+            'name.required' => 'The name field is required.',
+            'name.string' => 'The name must be a valid string.',
+            'name.max' => 'The name must not exceed 20 characters.',
         ];
     }
 }

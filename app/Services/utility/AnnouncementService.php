@@ -17,6 +17,7 @@ class AnnouncementService
     public function create(array $data)
     {
         $data['created_by'] = Auth::id();
+        $data['user_id'] = Auth::id();
         return Announcement::create($data);
     }
 

@@ -14,6 +14,11 @@ class DepartmentService
 
     public function create(array $data)
     {
+        // Set name from subject if not provided
+        if (isset($data['subject']) && !isset($data['name'])) {
+            $data['name'] = $data['subject'];
+        }
+        
         return Department::create($data);
     }
 

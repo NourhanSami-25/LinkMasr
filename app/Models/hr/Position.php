@@ -12,7 +12,7 @@ class Position extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable =
     [

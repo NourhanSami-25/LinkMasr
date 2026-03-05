@@ -218,10 +218,10 @@
 														<a href="{{route('users.show' , $user->id)}}" class="text-primary-900 text-hover-primary">
 														@endhasAccess
 														{{$user->name}}</a></td>
-													<td class="text-start">{{ $user->department ? __("general." . str_replace(" ", "_", strtolower($user->department->subject))) : "" }}</td>
+													<td class="text-start">{{ $user->department ? $user->department->subject : "" }}</td>
 													<td class="text-start"><div class="badge {{ $user->status === 'active' ? 'badge-light-success' : 'badge-light-danger' }}">{{ __('general.' . $user->status) }}</div></td>
 													<td class="text-start">{{$user->email}}</td>
-													<td class="text-start">{{ $user->position ? __("general." . str_replace(" ", "_", strtolower($user->position->subject))) : "" }}</td>
+													<td class="text-start">{{ $user->positionRelation ? $user->positionRelation->subject : "" }}</td>
 													<td class="text-end">
 														<a href="#"
 															class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"

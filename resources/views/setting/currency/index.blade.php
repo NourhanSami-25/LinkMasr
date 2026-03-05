@@ -197,12 +197,12 @@
 												@foreach($currencies as $currency)
 												<tr>
 													<td class="text-start">{{$currency->id}}</td>
-													<td class="text-start">{{ __("general." . strtolower(str_replace(" ", "_", $currency->name))) }}</td>
-													<td class="text-start">{{ __("general." . strtolower(str_replace(" ", "_", str_replace("-", "_", $currency->code)))) }}</td>
-													<td class="text-start">{{ __("general." . strtolower(str_replace(" ", "_", str_replace("-", "_", $currency->symbol)))) }}</td>
+													<td class="text-start">{{$currency->name}}</td>
+													<td class="text-start">{{$currency->code}}</td>
+													<td class="text-start">{{$currency->symbol}}</td>
 													<td class="text-start">{{$currency->decimal_separator}}</td>
 													<td class="text-start">{{$currency->thousand_separator}}</td>
-													<td class="text-start">{{ __('general.' . $currency->currency_placement) }}</td>
+													<td class="text-start">{{ $currency->currency_placement == 'before' ? 'قبل المبلغ' : 'بعد المبلغ' }}</td>
 													<td class="text-start">{{date('Y-m-d', strtotime($currency->created_at))}}</td>
 													<td class="text-start">{{date('Y-m-d', strtotime($currency->updated_at))}}</td>
 													<td class="text-end">

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('money_requests', function (Blueprint $table) {
-            $table->renameColumn('date', 'start_date');
+        Schema::table('positions', function (Blueprint $table) {
+            $table->timestamps();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('money_requests', function (Blueprint $table) {
-            $table->renameColumn('start_date', 'date');
+        Schema::table('positions', function (Blueprint $table) {
+            $table->dropTimestamps();
         });
     }
 };

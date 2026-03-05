@@ -183,12 +183,26 @@
 																<!--begin::Input group-->
 																<div class="fv-row w-100 flex-md-root">
 																	<!--begin::Label-->
-																	<label class="required form-label">{{ __('general.used_days') }}</label>
+																	<label class="required form-label">{{ __('general.remaining_days') }}</label>
 																	<!--end::Label-->
 																	<!--begin::Input-->
 																	<input type="number" step="0.5" name="remaining_days" class="form-control mb-2"
        																	value="{{ max(0, $balance->total_days - $balance->used_days)}}"
        																	data-required="true" readonly/>																		
+																	<!--end::Input-->
+																</div>
+																<!--end::Input group-->
+                                                            </div>
+                                                            <!--end::InpudRow-->
+															<!--begin::InpudRow-->
+															<div class="d-flex flex-wrap gap-5 mb-5">
+																<!--begin::Input group-->
+																<div class="fv-row w-100 flex-md-root">
+																	<!--begin::Label-->
+																	<label class="form-label">{{ __('general.created_at') }}</label>
+																	<!--end::Label-->
+																	<!--begin::Input-->
+																	<input type="text" class="form-control mb-2" value="{{ $balance->created_at }}" readonly/>																		
 																	<!--end::Input-->
 																</div>
 																<!--end::Input group-->
