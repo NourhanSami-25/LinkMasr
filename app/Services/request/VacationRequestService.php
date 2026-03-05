@@ -30,6 +30,15 @@ class VacationRequestService
     {
         $data['user_id'] = Auth::id();
         $data['status'] = 'pending';
+        
+        // Set default approver if not provided
+        if (empty($data['approver_id'])) {
+            $data['approver_id'] = Auth::id(); // Default to current user
+        }
+        if (empty($data['approver_name'])) {
+            $data['approver_name'] = Auth::user()->name ?? 'Unknown';
+        }
+        
         if (!empty($data['follower'])) {
             $data['follower'] = json_encode($data['follower']);
         }

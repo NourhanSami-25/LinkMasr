@@ -298,7 +298,7 @@
 																	<label class="required form-label">{{ __('general.start_date') }}</label>
 																	<!--end::Label-->
 																	<!--begin::Input-->
-																	<input id="start_date" name="date" data-label="{{ __('general.start_date') }}" value="{{ date('Y-m-d') }}" class="flatpickr-date form-control mb-2"
+																	<input id="start_date" name="start_date" data-label="{{ __('general.start_date') }}" value="{{ date('Y-m-d') }}" class="flatpickr-date form-control mb-2"
 																		data-type="dateTime" data-required="true"/>
 																	<!--end::Input-->
 																</div>
@@ -309,7 +309,7 @@
 																	<label class="required form-label">{{ __('general.end_date') }}</label>
 																	<!--end::Label-->
 																	<!--begin::Input-->
-																	<input id="end_date" name="due_date" data-label="{{ __('general.end_date') }}" class="flatpickr-date form-control mb-2"
+																	<input id="end_date" name="end_date" data-label="{{ __('general.end_date') }}" class="flatpickr-date form-control mb-2"
 																		 data-type="end_date" data-required="true"/>
 																	<!--end::Input-->
 																	<!--begin::error-->

@@ -29,6 +29,8 @@ class MissionRequestService
     {
         $data['user_id'] = Auth::id();
         $data['status'] = 'pending';
+        $data['approver_id'] = 1; // Default approver
+        $data['approver_name'] = 'Administrator'; // Default approver name
 
         if (!empty($data['follower'])) {
             $data['follower'] = json_encode($data['follower']);
@@ -40,15 +42,19 @@ class MissionRequestService
         switch ($data['related']) {
             case 'task':
                 $data['related_work'] = $data['task'];
+                $data['task_name'] = $data['task'];
                 break;
             case 'project':
                 $data['related_work'] = $data['project'];
+                $data['task_name'] = null;
                 break;
             case 'client':
                 $data['related_work'] = $data['client'];
+                $data['task_name'] = null;
                 break;
             default:
                 $data['related_work'] = 'none';
+                $data['task_name'] = null;
         }
 
         return MissionRequest::create($data);

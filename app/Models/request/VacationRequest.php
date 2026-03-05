@@ -13,14 +13,15 @@ class VacationRequest extends Model
         'vacation_type',
         'subject',
         'description',
-        'date',
-        'due_date',
+        'start_date',
+        'end_date',
         'duration',
         'duration_type',
         'follower',
         'handover',
         'status',
-        'approver',
+        'approver_id',
+        'approver_name',
     ];
 
 

@@ -31,6 +31,19 @@ class WorkhomeRequestService
     {
         $data['user_id'] = Auth::id();
         $data['status'] = 'pending';
+        $data['approver_id'] = 1;
+        $data['approver_name'] = 'Administrator';
+        
+        // Fix field names to match database schema
+        if (isset($data['date'])) {
+            $data['start_date'] = $data['date'];
+            unset($data['date']);
+        }
+        if (isset($data['due_date'])) {
+            $data['end_date'] = $data['due_date'];
+            unset($data['due_date']);
+        }
+        
         if (!empty($data['follower'])) {
             $data['follower'] = json_encode($data['follower']);
         }

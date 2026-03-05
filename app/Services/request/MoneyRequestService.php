@@ -29,6 +29,8 @@ class MoneyRequestService
     {
         $data['user_id'] = Auth::id();
         $data['status'] = 'pending';
+        $data['approver_id'] = 1;
+        $data['approver_name'] = 'Administrator';
         if (!empty($data['follower'])) {
             $data['follower'] = json_encode($data['follower']);
         }

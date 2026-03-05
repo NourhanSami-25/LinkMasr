@@ -16,6 +16,12 @@ class SupportRequest extends Model
         'handover',
         'status',
         'approver',
+        'approver_id',
+        'approver_name',
+        'support_type',
+        'purpose',
+        'start_date',
+        'end_date',
     ];
 
     public function user(): BelongsTo

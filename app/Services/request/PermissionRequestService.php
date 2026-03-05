@@ -30,6 +30,8 @@ class PermissionRequestService
     {
         $data['user_id'] = Auth::id();
         $data['status'] = 'pending';
+        $data['approver_id'] = 1; // Default approver
+        $data['approver_name'] = 'Administrator'; // Default approver name
         if (!empty($data['follower'])) {
             $data['follower'] = json_encode($data['follower']);
         }

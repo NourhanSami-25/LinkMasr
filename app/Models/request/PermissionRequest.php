@@ -12,14 +12,15 @@ class PermissionRequest extends Model
         'user_id',
         'subject',
         'description',
-        'date',
-        'due_date',
+        'start_date',
+        'end_date',
         'duration',
         'duration_type',
         'follower',
         'handover',
         'status',
-        'approver',
+        'approver_id',
+        'approver_name',
     ];
 
     public function user(): BelongsTo
