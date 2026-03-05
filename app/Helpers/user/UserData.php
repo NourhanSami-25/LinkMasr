@@ -32,11 +32,18 @@ if (!function_exists('__getUserEmailById')) {
 if (!function_exists('__getUsersNamesByIds')) {
     function __getUsersNamesByIds($userIds): string
     {
-        $userIds = json_decode($userIds, true);
-        if (!is_array($userIds)) {
+        // Check if $userIds is already an array
+        if (is_array($userIds)) {
+            $userIdsArray = $userIds;
+        } else {
+            // Try to decode if it's a JSON string
+            $userIdsArray = json_decode($userIds, true);
+        }
+        
+        if (!is_array($userIdsArray)) {
             return '';
         }
-        $users = User::whereIn('id', $userIds)->get();
+        $users = User::whereIn('id', $userIdsArray)->get();
         $userNames = $users->map(function ($user) {
             return $user->name;
         })->join(' - ');

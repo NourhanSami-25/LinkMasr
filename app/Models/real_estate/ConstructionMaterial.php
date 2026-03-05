@@ -3,6 +3,7 @@
 namespace App\Models\real_estate;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ConstructionMaterial extends Model
 {
@@ -41,5 +42,11 @@ class ConstructionMaterial extends Model
     public function getStockValueAttribute(): float
     {
         return $this->stock_quantity * $this->unit_price;
+    }
+
+    // Relationship with material prices
+    public function prices(): HasMany
+    {
+        return $this->hasMany(MaterialPrice::class, 'material_id');
     }
 }

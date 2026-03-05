@@ -32,7 +32,7 @@ class Task extends Model
         'boq_id', // Construction BOQ link for EVM integration
         'subject',
         'status',
-        'date',
+        'start_date',
         'due_date',
         'priority',
         'related',
@@ -45,6 +45,15 @@ class Task extends Model
         'assignees',
         'followers',
         'created_by'
+    ];
+
+    protected $casts = [
+        'start_date' => 'datetime',
+        'due_date' => 'datetime',
+        'assignees' => 'array',
+        'followers' => 'array',
+        'is_repeated' => 'boolean',
+        'is_billed' => 'boolean',
     ];
 
     //  create has many for all finance , create has many for all requests

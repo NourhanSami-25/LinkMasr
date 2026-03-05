@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 @if (app()->getLocale() == 'ar')
 	@include('assets._language_ar')
@@ -128,7 +128,7 @@
 								                        <!-- X Button to Hide Announcement -->
 								                        <button class="btn btn-sm btn-light-primary remove-announcement" style="background: none" 
 								                                data-id="{{ $announcement['id'] }}">
-								                            ✖
+								                            âœ–
 								                        </button>
 								                    </div>
 								                    <!--end::Description-->
@@ -332,7 +332,7 @@
 													<!--begin::Header-->
 													<div class="card-header border-0 pt-5">
 														<h3 class="card-title align-items-start flex-column">
-															<span class="card-label fw-bold text-gray-900">{{__('general.What’s_up_today')}}</span>
+															<span class="card-label fw-bold text-gray-900">{{__('general.whats_up_today')}}</span>
 															<span class="text-muted mt-1 fw-semibold fs-7">{{__('general.follow_all_daily_tasks')}}</span>
 														</h3>
 														<!--begin::Toolbar-->

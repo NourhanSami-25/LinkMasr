@@ -2,12 +2,12 @@
 
 namespace App\Models\real_estate;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\project\Project;
 use App\Models\user\User;
 
-class ProjectPartner extends Model
+class ProjectPartner extends Pivot
 {
     protected $table = 'project_partner';
     

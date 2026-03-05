@@ -37,6 +37,15 @@ class Proposal extends Model
         'created_by'
     ];
 
+    protected $casts = [
+        'date' => 'date',
+        'due_date' => 'date',
+        'open_till' => 'date',
+        'tags' => 'array',
+        'assigned' => 'array',
+        'total' => 'decimal:2',
+    ];
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
