@@ -125,7 +125,7 @@
 								                <div class="mb-8 pt-xl-2 announcement-item" id="announcement-{{ $announcement['id'] }}">
 								                    <div class="d-flex justify-content-between align-items-center">
 								                        <!--begin::Description-->
-								                        <span class="fw-bold text-white fs-4 d-block lh-0">Announcement #{{ $loop->iteration }} {{ $announcement['subject'] }}</span>
+								                        <span class="fw-bold text-light fs-4 d-block lh-0" style="color: #ffffff !important; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Announcement #{{ $loop->iteration }} {{ $announcement['subject'] }}</span>
 								                        <!-- X Button to Hide Announcement -->
 								                        <button class="btn btn-sm btn-light-primary remove-announcement" style="background: none" 
 								                                data-id="{{ $announcement['id'] }}">
@@ -134,15 +134,15 @@
 								                    </div>
 								                    <!--end::Description-->
 								                    <!--begin::Title-->
-								                    <h3 class="fw-semibold text-gray-500 fs-5 mb-5">{{ $announcement['message'] }}</h3>
+								                    <h3 class="fw-semibold fs-5 mb-5" style="color: #e0e0e0 !important; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">{{ $announcement['message'] }}</h3>
 								                    <!--end::Title-->
 													@if(  $announcement['show_name'] )
 								                    <!--begin::Description-->
-								                    <span class="fw-bold text-white fs-6 d-block lh-0">{{ __getUserNameById($announcement['created_by']) }}</span>
+								                    <span class="fw-bold text-light fs-6 d-block lh-0" style="color: #ffffff !important; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">{{ __getUserNameById($announcement['created_by']) }}</span>
 								                    <!--end::Description-->
 													@else
 													<!--begin::Description-->
-								                    <span class="fw-bold text-white fs-5 d-block lh-0">{{ __('general.hr_department') }}</span>
+								                    <span class="fw-bold text-light fs-5 d-block lh-0" style="color: #ffffff !important; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">{{ __('general.hr_department') }}</span>
 								                    <!--end::Description-->
 													@endif
 								                </div>

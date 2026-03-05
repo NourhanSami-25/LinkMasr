@@ -3,34 +3,54 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\project\Project;
+use App\Models\user\User;
 
 class RevenueDistributionItem extends Model
 {
     protected $fillable = [
-        'distribution_id',
+        'project_id',
         'partner_id',
-        'capital_share_percentage',
-        'management_fee_percentage',
-        'share_amount',
-        'management_fee_amount',
-        'total_amount'
+        'revenue_amount',
+        'partner_percentage',
+        'total_amount',
+        'distribution_type',
+        'distribution_date',
+        'status',
+        'notes'
     ];
 
     protected $casts = [
-        'capital_share_percentage' => 'decimal:2',
-        'management_fee_percentage' => 'decimal:2',
-        'share_amount' => 'decimal:2',
-        'management_fee_amount' => 'decimal:2',
-        'total_amount' => 'decimal:2'
+        'revenue_amount' => 'decimal:2',
+        'partner_percentage' => 'decimal:2',
+        'total_amount' => 'decimal:2',
+        'distribution_date' => 'date',
     ];
 
-    public function distribution()
+    public function project(): BelongsTo
     {
-        return $this->belongsTo(RevenueDistribution::class);
+        return $this->belongsTo(Project::class);
     }
 
-    public function partner()
+    public function partner(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\user\User::class, 'partner_id');
+        return $this->belongsTo(User::class, 'partner_id');
+    }
+
+    // Calculate total amount automatically
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($item) {
+            $item->total_amount = ($item->revenue_amount * $item->partner_percentage) / 100;
+        });
+    }
+
+    // Scope for distributed items
+    public function scopeDistributed($query)
+    {
+        return $query->where('status', 'distributed');
     }
 }

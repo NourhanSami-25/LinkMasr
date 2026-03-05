@@ -143,6 +143,6 @@ class Project extends Model
     // Construction Relations
     public function boqItems(): HasMany
     {
-        return $this->hasMany(\App\Models\ConstructionBoq::class);
+        return $this->hasMany(\App\Models\construction\ConstructionBoq::class);
     }
 }

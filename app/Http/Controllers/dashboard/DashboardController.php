@@ -512,64 +512,66 @@ class DashboardController extends Controller
      */
     private function get_construction_stats()
     {
-        // Temporarily disabled until construction_boqs table is created
-        return [
-            'total_projects' => 0,
-            'projects_with_boq' => 0,
-            'at_risk' => 0,
-            'on_track' => 0,
-            'total_budget' => 0,
-            'expenses_linked' => 0,
-            'tasks_linked' => 0,
-            'total_actual_cost' => 0,
-        ];
-        
-        /* Original code - uncomment after running migrations
-        $projects = \App\Models\project\Project::withCount('boqItems')->get();
-        
-        $stats = [
-            'total_projects' => $projects->count(),
-            'projects_with_boq' => $projects->where('boq_items_count', '>', 0)->count(),
-            'at_risk' => 0,
-            'on_track' => 0,
-            'total_budget' => 0,
-            // Integration stats
-            'expenses_linked' => 0,
-            'tasks_linked' => 0,
-            'total_actual_cost' => 0,
-        ];
-
-        $constructionService = app(\App\Services\ConstructionService::class);
-        */
-        
-        foreach ($projects->where('boq_items_count', '>', 0) as $project) {
-            try {
-                $summary = $constructionService->getProjectSummary($project->id);
-                $stats['total_budget'] += $summary['bac'] ?? 0;
-                $stats['total_actual_cost'] += $summary['ac'] ?? 0;
-                
-                $cpi = $summary['cpi'] ?? 1;
-                $spi = $summary['spi'] ?? 1;
-                
-                if ($cpi < 0.9 || $spi < 0.9) {
-                    $stats['at_risk']++;
-                } else {
-                    $stats['on_track']++;
-                }
-            } catch (\Exception $e) {
-                // Skip if error
-            }
-        }
-
-        // Count linked expenses and tasks
         try {
-            $stats['expenses_linked'] = \App\Models\finance\Expense::whereNotNull('boq_id')->count();
-            $stats['tasks_linked'] = \App\Models\task\Task::whereNotNull('boq_id')->count();
-        } catch (\Exception $e) {
-            // Columns might not exist yet
-        }
+            $projects = \App\Models\project\Project::withCount('boqItems')->get();
+            
+            $stats = [
+                'total_projects' => $projects->count(),
+                'projects_with_boq' => $projects->where('boq_items_count', '>', 0)->count(),
+                'at_risk' => 0,
+                'on_track' => 0,
+                'total_budget' => 0,
+                // Integration stats
+                'expenses_linked' => 0,
+                'tasks_linked' => 0,
+                'total_actual_cost' => 0,
+            ];
 
-        return $stats;
+            $constructionService = app(\App\Services\ConstructionService::class);
+            
+            foreach ($projects->where('boq_items_count', '>', 0) as $project) {
+                try {
+                    $summary = $constructionService->getProjectSummary($project->id);
+                    $stats['total_budget'] += $summary['bac'] ?? 0;
+                    $stats['total_actual_cost'] += $summary['ac'] ?? 0;
+                    
+                    $cpi = $summary['cpi'] ?? 1;
+                    $spi = $summary['spi'] ?? 1;
+                    
+                    if ($cpi < 0.9 || $spi < 0.9) {
+                        $stats['at_risk']++;
+                    } else {
+                        $stats['on_track']++;
+                    }
+                } catch (\Exception $e) {
+                    // Skip if error
+                }
+            }
+
+            // Count linked expenses and tasks
+            try {
+                $stats['expenses_linked'] = \App\Models\finance\Expense::whereNotNull('boq_id')->count();
+                $stats['tasks_linked'] = \App\Models\task\Task::whereNotNull('boq_id')->count();
+            } catch (\Exception $e) {
+                // Columns might not exist yet
+                $stats['expenses_linked'] = 0;
+                $stats['tasks_linked'] = 0;
+            }
+
+            return $stats;
+        } catch (\Exception $e) {
+            // Return default values if any error occurs
+            return [
+                'total_projects' => 0,
+                'projects_with_boq' => 0,
+                'at_risk' => 0,
+                'on_track' => 0,
+                'total_budget' => 0,
+                'expenses_linked' => 0,
+                'tasks_linked' => 0,
+                'total_actual_cost' => 0,
+            ];
+        }
     }
 
     /**

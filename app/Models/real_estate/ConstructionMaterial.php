@@ -3,29 +3,43 @@
 namespace App\Models\real_estate;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ConstructionMaterial extends Model
 {
-    protected $table = 'construction_materials';
-
     protected $fillable = [
         'name',
+        'code',
+        'category',
         'unit',
+        'unit_price',
+        'stock_quantity',
+        'minimum_stock',
+        'supplier',
         'description',
+        'status'
     ];
 
-    public function prices(): HasMany
+    protected $casts = [
+        'unit_price' => 'decimal:2',
+        'stock_quantity' => 'decimal:2',
+        'minimum_stock' => 'decimal:2',
+    ];
+
+    // Scope for active materials
+    public function scopeActive($query)
     {
-        return $this->hasMany(MaterialPrice::class, 'material_id');
+        return $query->where('status', 'active');
     }
 
-    public function getLatestPriceAttribute()
+    // Check if stock is low
+    public function isLowStock(): bool
     {
-        return $this->prices()
-            ->whereDate('date', '<=', now())
-            ->orderBy('date', 'desc')
-            ->first()
-            ->price ?? 0;
+        return $this->stock_quantity <= $this->minimum_stock;
+    }
+
+    // Calculate total stock value
+    public function getStockValueAttribute(): float
+    {
+        return $this->stock_quantity * $this->unit_price;
     }
 }
