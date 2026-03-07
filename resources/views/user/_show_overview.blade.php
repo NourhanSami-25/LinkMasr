@@ -43,7 +43,7 @@ role="tabpanel">
     							{{__('general.department')}}
     						</div>
     					</td>
-    					<td class="fw-bold text-end text-gray-800">{{$user->department->subject ?? __('general.not_exists')}}</td>
+    					<td class="fw-bold text-end text-gray-800">{{$user->department->name ?? __('general.not_exists')}}</td>
     				</tr>
                     <tr>
     					<td class="text-muted">

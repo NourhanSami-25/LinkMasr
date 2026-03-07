@@ -237,7 +237,7 @@
 														</div>
 													</td>		
 													<td class="text-start">{{$lead->number}}</td>
-													<td class="text-start">{{$lead->source}}</td>
+													<td class="text-start">{{ __('general.' . $lead->source) }}</td>
 													<td class="text-start">{{$lead->lead_value}}</td>
 													<td class="text-start">{{$lead->created_since}}</td>
 													<td class="text-start">{{__getUserNameById ($lead->created_by)}}</td>
@@ -327,7 +327,21 @@
     	    if (table) {
     	        $(table).DataTable({
 					order: [[0, 'desc']], // 👈 sort by first column descending
-    	            pageLength: 25
+    	            pageLength: 25,
+    	            language: {
+    	                sInfo: "{{ __('general.datatable_info') }}",
+    	                sLengthMenu: "{{ __('general.datatable_sLengthMenu') }}",
+    	                sSearch: "{{ __('general.datatable_sSearch') }}",
+    	                sZeroRecords: "{{ __('general.datatable_sZeroRecords') }}",
+    	                sInfoEmpty: "{{ __('general.datatable_sInfoEmpty') }}",
+    	                sInfoFiltered: "{{ __('general.datatable_sInfoFiltered') }}",
+    	                paginate: {
+    	                    sFirst: "{{ __('general.datatable_sFirst') }}",
+    	                    sPrevious: "{{ __('general.datatable_sPrevious') }}",
+    	                    sNext: "{{ __('general.datatable_sNext') }}",
+    	                    sLast: "{{ __('general.datatable_sLast') }}"
+    	                }
+    	            }
     	        });
     	    }
     	});

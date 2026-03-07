@@ -345,6 +345,23 @@
 													<!--begin::Body-->
 													<div class="card-body pt-7 px-0">
 		
+														@php
+															// Function to get localized day abbreviation
+															function getLocalizedDayAbbrWithAds($date) {
+																$dayOfWeek = \Carbon\Carbon::parse($date)->dayOfWeek;
+																$dayKeys = [
+																	0 => 'sun_short', // Sunday
+																	1 => 'mon_short', // Monday
+																	2 => 'tue_short', // Tuesday
+																	3 => 'wed_short', // Wednesday
+																	4 => 'thu_short', // Thursday
+																	5 => 'fri_short', // Friday
+																	6 => 'sat_short', // Saturday
+																];
+																return __('general.' . $dayKeys[$dayOfWeek]);
+															}
+														@endphp
+
 														<!--begin::Nav-->
 														<ul
 															class="nav nav-stretch nav-pills nav-pills-custom nav-pills-active-custom d-flex justify-content-between mb-8 px-5">
@@ -355,7 +372,7 @@
 																	<a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px py-4 px-3 btn-active-danger {{ \Carbon\Carbon::parse($day)->isToday() ? 'active' : '' }}"
 																		data-bs-toggle="tab"
 																		 href="#kt_timeline_widget_3_tab_content_{{ \Carbon\Carbon::parse($day)->format('Ymd') }}">
-																		<span class="fs-7 fw-semibold">{{ \Carbon\Carbon::parse($day)->format('D') }}</span>
+																		<span class="fs-7 fw-semibold">{{ getLocalizedDayAbbrWithAds($day) }}</span>
 																		<span class="fs-6 fw-bold">{{ \Carbon\Carbon::parse($day)->format('d') }}</span>
 																	</a>
 																	<!--end::Date-->

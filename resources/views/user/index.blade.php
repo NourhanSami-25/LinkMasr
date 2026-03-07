@@ -221,7 +221,7 @@
 													<td class="text-start">{{ $user->department ? $user->department->subject : "" }}</td>
 													<td class="text-start"><div class="badge {{ $user->status === 'active' ? 'badge-light-success' : 'badge-light-danger' }}">{{ __('general.' . $user->status) }}</div></td>
 													<td class="text-start">{{$user->email}}</td>
-													<td class="text-start">{{ $user->positionRelation ? $user->positionRelation->subject : "" }}</td>
+													<td class="text-start">{{ $user->job_title ?? "" }}</td>
 													<td class="text-end">
 														<a href="#"
 															class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
@@ -301,7 +301,21 @@
     	    if (table) {
     	        $(table).DataTable({
 					order: [[0, 'desc']], // 👈 sort by first column descending
-    	            pageLength: 50
+    	            pageLength: 50,
+    	            language: {
+    	                sInfo: "{{ __('general.datatable_info') }}",
+    	                sLengthMenu: "{{ __('general.datatable_sLengthMenu') }}",
+    	                sSearch: "{{ __('general.datatable_sSearch') }}",
+    	                sZeroRecords: "{{ __('general.datatable_sZeroRecords') }}",
+    	                sInfoEmpty: "{{ __('general.datatable_sInfoEmpty') }}",
+    	                sInfoFiltered: "{{ __('general.datatable_sInfoFiltered') }}",
+    	                paginate: {
+    	                    sFirst: "{{ __('general.datatable_sFirst') }}",
+    	                    sPrevious: "{{ __('general.datatable_sPrevious') }}",
+    	                    sNext: "{{ __('general.datatable_sNext') }}",
+    	                    sLast: "{{ __('general.datatable_sLast') }}"
+    	                }
+    	            }
     	        });
     	    }
     	});
