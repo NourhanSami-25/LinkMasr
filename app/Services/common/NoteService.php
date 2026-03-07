@@ -12,9 +12,14 @@ class NoteService
     public function create(array $data)
     {
         $model = $data['model_type']::findOrFail($data['model_id']);
+        
+        // Get the current user's name for the username field
+        $currentUser = auth()->user();
+        $username = $currentUser ? $currentUser->name : 'Unknown User';
+        
         $model->notes()->create([
             'content' => $data['content'],
-            'created_by' => auth::id(),
+            'username' => $username,
         ]);
     }
 

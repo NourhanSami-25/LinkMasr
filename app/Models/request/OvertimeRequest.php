@@ -27,6 +27,11 @@ class OvertimeRequest extends Model
         'task_name',
     ];
 
+    protected $casts = [
+        'follower' => 'array',
+        'handover' => 'array',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

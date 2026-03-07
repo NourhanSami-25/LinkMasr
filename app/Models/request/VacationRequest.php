@@ -24,6 +24,11 @@ class VacationRequest extends Model
         'approver_name',
     ];
 
+    protected $casts = [
+        'follower' => 'array',
+        'handover' => 'array',
+    ];
+
 
     public function user(): BelongsTo
     {

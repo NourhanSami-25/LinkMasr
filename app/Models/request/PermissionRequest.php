@@ -23,6 +23,11 @@ class PermissionRequest extends Model
         'approver_name',
     ];
 
+    protected $casts = [
+        'follower' => 'array',
+        'handover' => 'array',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

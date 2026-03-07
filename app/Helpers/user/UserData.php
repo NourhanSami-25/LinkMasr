@@ -88,15 +88,26 @@ if (!function_exists('getManagerDepartmentId')) {
 
 
 if (!function_exists('getUsersFromIds')) {
-    function __getUsersFromIds(string $jsonIds)
+    function __getUsersFromIds($jsonIds)
     {
-        $userIds = json_decode($jsonIds, true);
+        // Handle null or empty values
+        if (empty($jsonIds)) {
+            return [];
+        }
+
+        // If it's already an array, use it directly
+        if (is_array($jsonIds)) {
+            $userIds = $jsonIds;
+        } else {
+            // Try to decode JSON string
+            $userIds = json_decode($jsonIds, true);
+        }
 
         if (!is_array($userIds)) {
             return [];
         }
 
-        $users =  User::whereIn('id', $userIds)->get();
+        $users = User::whereIn('id', $userIds)->get();
         return $users;
     }
 }

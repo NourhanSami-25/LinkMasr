@@ -26,7 +26,6 @@ class Reminder extends Model
         'is_repeated',
         'repeat_every',
         'repeat_every_type',
-        'members',
         'created_by',
     ];
 

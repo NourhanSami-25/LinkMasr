@@ -24,6 +24,11 @@ class SupportRequest extends Model
         'end_date',
     ];
 
+    protected $casts = [
+        'follower' => 'array',
+        'handover' => 'array',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

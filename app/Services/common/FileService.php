@@ -19,7 +19,7 @@ class FileService
             'description' => $fileData['description'],
             'path' => $path,
             'category' => $fileData['category'],
-            'created_by' => auth::id(),
+            'created_by' => auth()->id(),
         ]);
     }
 
@@ -30,7 +30,7 @@ class FileService
         // Always update name/description
         $updateData = [
             'name' => $data['name'] ?? $file->name,
-            'description' => $data['description'] ?? $file->description,
+            'description' => $data['description'] ?? ($file->description ?? ''),
         ];
 
         // Check if a new file is being uploaded

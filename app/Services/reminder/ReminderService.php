@@ -28,8 +28,8 @@ class ReminderService
             // Get reminders where created_by = Auth::id()
             $reminders2 = Reminder::where('created_by', $authId)->get();
             
-            // Get reminders where Auth::id() is in "members" JSON array
-            $reminders3 = Reminder::whereJsonContains('members', (string) $authId)->get();
+            // Get reminders where Auth::id() is in "assigned_to" JSON array
+            $reminders3 = Reminder::whereJsonContains('assigned_to', (string) $authId)->get();
             
             // Merge results and remove duplicates
             $allReminders = $reminders1
@@ -61,9 +61,17 @@ class ReminderService
             $data['description'] = $data['subject'] ?? 'تنبيه جديد';
         }
         
+        // Handle members field - map it to assigned_to if provided
         if (!empty($data['members'])) {
-            $data['members'] = json_encode($data['members']);
+            if (is_array($data['members'])) {
+                $data['assigned_to'] = json_encode($data['members']);
+            } else {
+                $data['assigned_to'] = $data['members'];
+            }
+            // Remove members from data since it doesn't exist in the table
+            unset($data['members']);
         }
+        
         return Reminder::create($data);
     }
 

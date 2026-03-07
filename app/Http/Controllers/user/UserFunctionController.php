@@ -80,15 +80,22 @@ class UserFunctionController extends Controller
     {
         $allRequests = collect();
         foreach ($this->models as $type => $model) {
-            $requests = $model::where('user_id', $userId)
-                ->orWhereJsonContains('follower', (string) $userId)
-                ->orWhereJsonContains('handover', (string) $userId)
-                ->distinct()
-                ->get()
-                ->map(function ($request) use ($type) {
-                    return $request->setAttribute('type', $type);
-                });
-            $allRequests = $allRequests->merge($requests);
+            try {
+                $requests = $model::where('user_id', $userId)
+                    ->orWhere(function($query) use ($userId) {
+                        $query->whereJsonContains('follower', (string) $userId)
+                              ->orWhereJsonContains('handover', (string) $userId);
+                    })
+                    ->distinct()
+                    ->get()
+                    ->map(function ($request) use ($type) {
+                        return $request->setAttribute('type', $type);
+                    });
+                $allRequests = $allRequests->merge($requests);
+            } catch (\Exception $e) {
+                // Skip this model if there's a JSON error and continue with others
+                continue;
+            }
         }
         $requests = $allRequests->sortByDesc('created_at');
         return $requests;

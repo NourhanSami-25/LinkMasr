@@ -91,8 +91,9 @@ class ProjectController extends Controller
         try {
             $project = $this->projectService->update($id, $request->validated());
             AutoReminderService::update($project);
-            if ($project->assignees)
+            if (!empty($project->assignees)) {
                 $this->notificationService->notify('Update Project:' . $project->subject, '', 'none', __getUsersFromIds($project->assignees));
+            }
             return redirect()->route('projects.show', $project->id)->with('success', 'Project Updated Successfully');
         } catch (Exception $e) {
             throw $e;
