@@ -2233,6 +2233,15 @@ return [
     'tomorrow' => 'غداً',
     'tuesday' => 'الثلاثاء',
     'wednesday' => 'الأربعاء',
+    
+    // Day abbreviations for calendar widget
+    'sun_short' => 'أحد',
+    'mon_short' => 'اثنين',
+    'tue_short' => 'ثلاثاء',
+    'wed_short' => 'أربعاء',
+    'thu_short' => 'خميس',
+    'fri_short' => 'جمعة',
+    'sat_short' => 'سبت',
     'weekend' => 'عطلة نهاية الأسبوع',
     'weekly' => 'أسبوعي',
     'winter' => 'الشتاء',
@@ -2283,4 +2292,84 @@ return [
     'operational' => 'تشغيلي',
     'capital' => 'رأسمالي',
     'expense_type' => 'نوع المصروف',
+
+    // DataTables translations
+    'datatable_info' => 'إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل',
+    'datatable_sLengthMenu' => 'أظهر _MENU_ مدخلات',
+    'datatable_sSearch' => 'ابحث:',
+    'datatable_sZeroRecords' => 'لم يعثر على أية سجلات',
+    'datatable_sInfoEmpty' => 'يعرض 0 إلى 0 من أصل 0 سجل',
+    'datatable_sInfoFiltered' => '(منتقاة من مجموع _MAX_ مُدخل)',
+    'datatable_sFirst' => 'الأول',
+    'datatable_sPrevious' => 'السابق',
+    'datatable_sNext' => 'التالي',
+    'datatable_sLast' => 'الأخير',
+
+    // Construction Management Interface Translations
+    'BOQ Items' => 'بنود جدول الكميات',
+    'Total Budget (BAC)' => 'إجمالي الميزانية (BAC)',
+    'Cost Control' => 'التحكم في التكاليف',
+    'Go to Construction Management' => 'الذهاب إلى إدارة المقاولات',
+    'Project Control' => 'التحكم في المشروع',
+    'BOQ & Breakdown' => 'جدول الكميات والتحليل',
+    'Cost Control (EVM)' => 'التحكم في التكاليف (EVM)',
+    'Dashboard & S-Curve' => 'لوحة التحكم والمنحنى S',
+    'View Full Partners Management' => 'عرض إدارة الشركاء الكاملة',
+    'View Full Financial Report' => 'عرض التقرير المالي الكامل',
+    'Upload Drawings' => 'رفع الرسومات',
+    
+    // Partners Management Interface Translations
+    'Partner Management' => 'إدارة الشركاء',
+    'Add Partner' => 'إضافة شريك',
+    'Project Partners' => 'شركاء المشروع',
+    'Partner Name' => 'اسم الشريك',
+    'Partner Share' => 'حصة الشريك',
+    'Distributable' => 'القابل للتوزيع',
+    'Mgmt Fee Amount' => 'مبلغ رسوم الإدارة',
+    'Net Income (Project)' => 'صافي الدخل (المشروع)',
+    'Share %' => 'نسبة المشاركة %',
+    'Mgmt Fee %' => 'رسوم الإدارة %',
+    'Add New Partner' => 'إضافة شريك جديد',
+    'Select User' => 'اختر المستخدم',
+    'Share Percentage (%)' => 'نسبة المشاركة (%)',
+    'Management Fee Percentage (%)' => 'نسبة رسوم الإدارة (%)',
+    'Close' => 'إغلاق',
+    'Save changes' => 'حفظ التغييرات',
+    
+    // Financial Reports Interface Translations
+    'Project Financials' => 'التقارير المالية للمشروع',
+    'Net Distributable Income' => 'صافي الدخل القابل للتوزيع',
+    'Revenue - Operational Expenses' => 'الإيرادات - المصروفات التشغيلية',
+    'Operational Expenses (OPEX)' => 'المصروفات التشغيلية (OPEX)',
+    'Deducted from Revenue before Distribution' => 'تُخصم من الإيرادات قبل التوزيع',
+    'No operational expenses found' => 'لم يتم العثور على مصروفات تشغيلية',
+    'Capital Expenses (CAPEX)' => 'المصروفات الرأسمالية (CAPEX)',
+    'Added to Project Asset Value (Not deducted from Revenue)' => 'تُضاف إلى قيمة أصول المشروع (لا تُخصم من الإيرادات)',
+    'No capital expenses found' => 'لم يتم العثور على مصروفات رأسمالية',
+    
+    // Engineering Drawings Interface Translations
+    'Engineering Drawings' => 'الرسومات الهندسية',
+    'Upload Drawing' => 'رفع رسمة',
+    'Project Drawings & Units' => 'رسومات المشروع والوحدات',
+    'Upload New Drawing' => 'رفع رسمة جديدة',
+    'Title' => 'العنوان',
+    'Type' => 'النوع',
+    'File' => 'الملف',
+    'Upload' => 'رفع',
+    'View Interactive Map' => 'عرض الخريطة التفاعلية',
+    
+    // Drawing Types
+    'Master Plan' => 'المخطط العام',
+    'Floor Plan' => 'مخطط الطابق',
+    'Unit Plan' => 'مخطط الوحدة',
+    '3D View' => 'عرض ثلاثي الأبعاد',
+    
+    // File Upload
+    'Choose File' => 'اختر ملف',
+    'No file chosen' => 'لم يتم اختيار ملف',
+    'Linked Units' => 'وحدات مرتبطة',
+    
+    // Form Options
+    'select_client' => 'اختر العميل',
+
 ];

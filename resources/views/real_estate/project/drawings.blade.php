@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('title')
-    {{ __('Engineering Drawings') }} - {{ $project->subject }}
+    {{ __('general.Engineering Drawings') }} - {{ $project->subject }}
 @endsection
 
 @section('content')
@@ -9,9 +9,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4 class="card-title">{{ __('Project Drawings & Units') }}</h4>
+                <h4 class="card-title">{{ __('general.Project Drawings & Units') }}</h4>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadDrawingModal">
-                    {{ __('Upload Drawing') }}
+                    {{ __('general.Upload Drawing') }}
                 </button>
             </div>
             <div class="card-body">
@@ -29,12 +29,12 @@
                                     
                                     @if($drawing->units->count() > 0)
                                         <div class="mt-2">
-                                            <span class="badge badge-light-info fs-7 fw-bold">{{ $drawing->units->count() }} Linked Units</span>
+                                            <span class="badge badge-light-info fs-7 fw-bold">{{ $drawing->units->count() }} {{ __('general.Linked Units') }}</span>
                                         </div>
                                     @endif
                                 </div>
                                 <div class="card-footer bg-white border-top-0">
-                                    <a href="{{ route('projects.drawings.show', ['project' => $project->id, 'drawing' => $drawing->id]) }}" class="btn btn-sm btn-outline-secondary w-100">{{ __('View Interactive Map') }}</a>
+                                    <a href="{{ route('projects.drawings.show', ['project' => $project->id, 'drawing' => $drawing->id]) }}" class="btn btn-sm btn-outline-secondary w-100">{{ __('general.View Interactive Map') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -52,31 +52,32 @@
             <form action="{{ route('projects.drawings.store', $project->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('Upload New Drawing') }}</h5>
+                    <h5 class="modal-title">{{ __('general.Upload New Drawing') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group mb-3">
-                        <label>{{ __('Title') }}</label>
+                        <label>{{ __('general.Title') }}</label>
                         <input type="text" name="title" class="form-control" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label>{{ __('Type') }}</label>
+                        <label>{{ __('general.Type') }}</label>
                         <select name="type" class="form-control">
-                            <option value="master_plan">Master Plan</option>
-                            <option value="floor_plan">Floor Plan</option>
-                            <option value="unit_plan">Unit Plan</option>
-                            <option value="3d_view">3D View</option>
+                            <option value="master_plan">{{ __('general.Master Plan') }}</option>
+                            <option value="floor_plan">{{ __('general.Floor Plan') }}</option>
+                            <option value="unit_plan">{{ __('general.Unit Plan') }}</option>
+                            <option value="3d_view">{{ __('general.3D View') }}</option>
                         </select>
                     </div>
                     <div class="form-group mb-3">
-                        <label>{{ __('File') }}</label>
+                        <label>{{ __('general.File') }}</label>
                         <input type="file" name="file" class="form-control" required>
+                        <small class="form-text text-muted">{{ __('general.Choose File') }}</small>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">{{ __('Upload') }}</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('general.Upload') }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('general.Close') }}</button>
                 </div>
             </form>
         </div>
