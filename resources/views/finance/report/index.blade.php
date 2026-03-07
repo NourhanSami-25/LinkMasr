@@ -249,7 +249,7 @@
                                                     <td class="text-start"><span class="badge badge-light-primary">{{ __('general.' . $record->type) }}</span></td>
                                                     <td class="text-start">{{ number_format($record->total, 2) }}</td>
                                                     <td class="text-start">{{ $record->currency }}</td>
-                                                    <td class="text-start">{{ ucfirst($record->status) }}</td>
+                                                    <td class="text-start">{{ __('general.' . $record->status) }}</td>
                                                     <td class="text-start">{{ $record->created_at }}</td>
                                                 </tr>
 												@endforeach

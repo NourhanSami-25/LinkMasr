@@ -44,20 +44,26 @@ class TaskService
         // Eager load assignees and followers names (more efficient)
         $userIds = collect();
         $tasks->each(function ($task) use (&$userIds) {
-            $userIds = $userIds->merge(json_decode($task->assignees, true) ?? [])
-                              ->merge(json_decode($task->followers, true) ?? []);
+            $assignees = is_string($task->assignees) ? json_decode($task->assignees, true) : $task->assignees;
+            $followers = is_string($task->followers) ? json_decode($task->followers, true) : $task->followers;
+            
+            $userIds = $userIds->merge($assignees ?? [])
+                              ->merge($followers ?? []);
         });
 
         $users = User::whereIn('id', $userIds->unique())->pluck('name', 'id');
 
         // Map names to tasks
         $tasks->each(function ($task) use ($users) {
+            $assignees = is_string($task->assignees) ? json_decode($task->assignees, true) : $task->assignees;
+            $followers = is_string($task->followers) ? json_decode($task->followers, true) : $task->followers;
+            
             $task->assignees_names = isset($task->assignees) 
-                ? array_filter(array_map(fn($id) => $users[$id] ?? null, json_decode($task->assignees, true) ?? []))
+                ? array_filter(array_map(fn($id) => $users[$id] ?? null, $assignees ?? []))
                 : [];
 
             $task->followers_names = isset($task->followers) 
-                ? array_filter(array_map(fn($id) => $users[$id] ?? null, json_decode($task->followers, true) ?? []))
+                ? array_filter(array_map(fn($id) => $users[$id] ?? null, $followers ?? []))
                 : [];
         });
 

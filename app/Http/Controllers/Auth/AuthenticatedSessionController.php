@@ -15,7 +15,13 @@ class AuthenticatedSessionController extends Controller
     public function create(): View
     {
         if (!session()->has('url.intended')) {
-            session()->put('url.intended', url()->previous());
+            $previous = url()->previous();
+            // Don't redirect to API endpoints or notification URLs after login
+            if (!str_contains($previous, '/notifications/') && 
+                !str_contains($previous, '/api/') && 
+                $previous !== url()->current()) {
+                session()->put('url.intended', $previous);
+            }
         }
         return view('auth.login');
     }
@@ -29,8 +35,16 @@ class AuthenticatedSessionController extends Controller
             // Regenerate session on successful login
             $request->session()->regenerate();
 
-            // Redirect to intended URL or fallback
+            // Get intended URL and validate it's not an API endpoint
             $intendedUrl = session()->pull('url.intended', route('index'));
+            
+            // If intended URL is an API endpoint or notification URL, redirect to dashboard instead
+            if (str_contains($intendedUrl, '/notifications/') || 
+                str_contains($intendedUrl, '/api/') ||
+                str_contains($intendedUrl, 'login')) {
+                return redirect()->route('index');
+            }
+            
             return redirect()->intended($intendedUrl);
         }
 

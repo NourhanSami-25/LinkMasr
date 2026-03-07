@@ -18,7 +18,7 @@ class ScheduleController extends Controller
     {
         $this->authorize('accessconstruction', ['view']);
         
-        $query = ProjectSchedule::with('project', 'creator');
+        $query = ProjectSchedule::with('project', 'creator', 'tasks');
         
         if ($request->project_id) {
             $query->where('project_id', $request->project_id);

@@ -248,7 +248,7 @@
 													<td class="text-start">{{$contract->total}}</td>
 													<td class="text-start">{{$contract->currency}}</td>
 													<td class="text-start">{{date('Y-m-d', strtotime($contract->date))}}</td>
-													<td class="text-start">{{$contract->type}}</td>
+													<td class="text-start">{{ __('general.' . $contract->type) }}</td>
 													<td class="text-start">{{__getUserNameById ($contract->created_by)}}</td>
 													<td class="text-end">
 														<a href="#"
