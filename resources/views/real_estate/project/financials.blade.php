@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('title')
-    {{ __('Project Financials') }} - {{ $project->subject }}
+    {{ __('general.Project Financials') }} - {{ $project->subject }}
 @endsection
 
 @section('content')
@@ -10,9 +10,9 @@
     <div class="col-md-4">
         <div class="card bg-success text-white">
             <div class="card-body">
-                <h5>{{ __('Net Distributable Income') }}</h5>
+                <h5>{{ __('general.Net Distributable Income') }}</h5>
                 <h2>{{ number_format($netIncome, 2) }} {{-- Currency should be dynamic --}}</h2>
-                <small>{{ __('Revenue - Operational Expenses') }}</small>
+                <small>{{ __('general.Revenue - Operational Expenses') }}</small>
             </div>
         </div>
     </div>
@@ -21,8 +21,8 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title text-warning">{{ __('Operational Expenses (OPEX)') }}</h4>
-                <small>{{ __('Deducted from Revenue before Distribution') }}</small>
+                <h4 class="card-title text-warning">{{ __('general.Operational Expenses (OPEX)') }}</h4>
+                <small>{{ __('general.Deducted from Revenue before Distribution') }}</small>
             </div>
             <div class="card-body">
                 <ul class="list-group">
@@ -32,7 +32,7 @@
                             <span>{{ number_format($expense->total, 2) }}</span>
                         </li>
                     @empty
-                        <li class="list-group-item text-center text-muted">{{ __('No operational expenses found') }}</li>
+                        <li class="list-group-item text-center text-muted">{{ __('general.No operational expenses found') }}</li>
                     @endforelse
                 </ul>
             </div>
@@ -43,8 +43,8 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title text-info">{{ __('Capital Expenses (CAPEX)') }}</h4>
-                <small>{{ __('Added to Project Asset Value (Not deducted from Revenue)') }}</small>
+                <h4 class="card-title text-info">{{ __('general.Capital Expenses (CAPEX)') }}</h4>
+                <small>{{ __('general.Added to Project Asset Value (Not deducted from Revenue)') }}</small>
             </div>
             <div class="card-body">
                 <ul class="list-group">
@@ -54,7 +54,7 @@
                             <span>{{ number_format($expense->total, 2) }}</span>
                         </li>
                     @empty
-                        <li class="list-group-item text-center text-muted">{{ __('No capital expenses found') }}</li>
+                        <li class="list-group-item text-center text-muted">{{ __('general.No capital expenses found') }}</li>
                     @endforelse
                 </ul>
             </div>

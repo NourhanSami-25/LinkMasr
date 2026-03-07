@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('title')
-    {{ __('Partner Management') }} - {{ $project->subject }}
+    {{ __('general.Partner Management') }} - {{ $project->subject }}
 @endsection
 
 @section('content')
@@ -9,22 +9,22 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4 class="card-title">{{ __('Project Partners') }}</h4>
+                <h4 class="card-title">{{ __('general.Project Partners') }}</h4>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPartnerModal">
-                    {{ __('Add Partner') }}
+                    {{ __('general.Add Partner') }}
                 </button>
             </div>
             <div class="card-body">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>{{ __('Partner Name') }}</th>
-                            <th>{{ __('Share %') }}</th>
-                            <th>{{ __('Mgmt Fee %') }}</th>
-                            <th>{{ __('Net Income (Project)') }}</th>
-                            <th>{{ __('Mgmt Fee Amount') }}</th>
-                            <th>{{ __('Distributable') }}</th>
-                            <th>{{ __('Partner Share') }}</th>
+                            <th>{{ __('general.Partner Name') }}</th>
+                            <th>{{ __('general.Share %') }}</th>
+                            <th>{{ __('general.Mgmt Fee %') }}</th>
+                            <th>{{ __('general.Net Income (Project)') }}</th>
+                            <th>{{ __('general.Mgmt Fee Amount') }}</th>
+                            <th>{{ __('general.Distributable') }}</th>
+                            <th>{{ __('general.Partner Share') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,12 +53,12 @@
             <form action="{{ route('projects.partners.store', $project->id) }}" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('Add New Partner') }}</h5>
+                    <h5 class="modal-title">{{ __('general.Add New Partner') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group mb-3">
-                        <label>{{ __('Select User') }}</label>
+                        <label>{{ __('general.Select User') }}</label>
                         <select name="partner_id" class="form-control" required>
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -66,17 +66,17 @@
                         </select>
                     </div>
                     <div class="form-group mb-3">
-                        <label>{{ __('Share Percentage (%)') }}</label>
+                        <label>{{ __('general.Share Percentage (%)') }}</label>
                         <input type="number" step="0.01" name="share_percentage" class="form-control" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label>{{ __('Management Fee Percentage (%)') }}</label>
+                        <label>{{ __('general.Management Fee Percentage (%)') }}</label>
                         <input type="number" step="0.01" name="management_fee_percentage" class="form-control" value="0">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">{{ __('Save changes') }}</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('general.Save changes') }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('general.Close') }}</button>
                 </div>
             </form>
         </div>

@@ -52,17 +52,17 @@
 							<div id="kt_app_content_container" class="app-container container-fluid">
                                 <div class="card">
                                     <div class="card-header card-header-stretch">
-                                        <h3 class="card-title">Project Control</h3>
+                                        <h3 class="card-title">{{ __('general.Project Control') }}</h3>
                                         <div class="card-toolbar">
                                             <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" data-bs-toggle="tab" href="#tab_boq">BOQ & Breakdown</a>
+                                                    <a class="nav-link active" data-bs-toggle="tab" href="#tab_boq">{{ __('general.BOQ & Breakdown') }}</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" data-bs-toggle="tab" href="#tab_cost_control">Cost Control (EVM)</a>
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#tab_cost_control">{{ __('general.Cost Control (EVM)') }}</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" data-bs-toggle="tab" href="#tab_dashboard">Dashboard & S-Curve</a>
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#tab_dashboard">{{ __('general.Dashboard & S-Curve') }}</a>
                                                 </li>
                                             </ul>
                                         </div>

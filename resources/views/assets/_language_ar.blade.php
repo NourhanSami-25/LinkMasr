@@ -1,1 +1,1 @@
-<html direction="rtl" dir="rtl" style="direction: rtl">
+<html lang="ar" direction="rtl" dir="rtl" style="direction: rtl">

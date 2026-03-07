@@ -302,7 +302,7 @@
 																			<i class="fa-solid fa-list-check fs-2x text-primary me-3"></i>
 																			<div>
 																				<div class="fs-4 fw-bold">{{ $project->boqItems->count() ?? 0 }}</div>
-																				<div class="fs-7 text-muted">BOQ Items</div>
+																				<div class="fs-7 text-muted">{{ __('general.BOQ Items') }}</div>
 																			</div>
 																		</div>
 																	</div>
@@ -316,7 +316,7 @@
 																			<i class="fa-solid fa-coins fs-2x text-success me-3"></i>
 																			<div>
 																				<div class="fs-4 fw-bold">{{ number_format($project->boqItems->sum('total_price') ?? 0, 2) }}</div>
-																				<div class="fs-7 text-muted">Total Budget (BAC)</div>
+																				<div class="fs-7 text-muted">{{ __('general.Total Budget (BAC)') }}</div>
 																			</div>
 																		</div>
 																	</div>
@@ -330,7 +330,7 @@
 																			<i class="fa-solid fa-chart-line fs-2x text-warning me-3"></i>
 																			<div>
 																				<div class="fs-4 fw-bold">EVM</div>
-																				<div class="fs-7 text-muted">Cost Control</div>
+																				<div class="fs-7 text-muted">{{ __('general.Cost Control') }}</div>
 																			</div>
 																		</div>
 																	</div>
@@ -339,7 +339,7 @@
 														</div>
 														<div class="mt-5">
 															<a href="{{ route('projects.construction.index', $project->id) }}" class="btn btn-primary w-100">
-																<i class="fa-solid fa-hard-hat me-2"></i>Go to Construction Management
+																<i class="fa-solid fa-hard-hat me-2"></i>{{ __('general.Go to Construction Management') }}
 															</a>
 														</div>
 													</div>
@@ -386,7 +386,7 @@
 															</table>
 														</div>
 														<a href="{{ route('projects.partners', $project->id) }}" class="btn btn-light-primary w-100 mt-3">
-															<i class="fa-solid fa-external-link me-2"></i>View Full Partners Management
+															<i class="fa-solid fa-external-link me-2"></i>{{ __('general.View Full Partners Management') }}
 														</a>
 													</div>
 												</div>
@@ -433,7 +433,7 @@
 															</div>
 														</div>
 														<a href="{{ route('projects.financials', $project->id) }}" class="btn btn-light-primary w-100 mt-5">
-															<i class="fa-solid fa-external-link me-2"></i>View Full Financial Report
+															<i class="fa-solid fa-external-link me-2"></i>{{ __('general.View Full Financial Report') }}
 														</a>
 													</div>
 												</div>
@@ -469,7 +469,7 @@
 																	<i class="fa-solid fa-drafting-compass fs-3x text-muted mb-3"></i>
 																	<p>{{ __('general.no_drawings') ?? 'No drawings uploaded yet' }}</p>
 																	<a href="{{ route('projects.drawings', $project->id) }}" class="btn btn-primary">
-																		<i class="fa-solid fa-upload me-2"></i>Upload Drawings
+																		<i class="fa-solid fa-upload me-2"></i>{{ __('general.Upload Drawings') }}
 																	</a>
 																</div>
 															</div>

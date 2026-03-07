@@ -76,6 +76,15 @@ return [
     'saturday' => 'Saturday',
     'sunday' => 'Sunday',
 
+    // Day abbreviations for calendar widget
+    'sun_short' => 'Sun',
+    'mon_short' => 'Mon',
+    'tue_short' => 'Tue',
+    'wed_short' => 'Wed',
+    'thu_short' => 'Thu',
+    'fri_short' => 'Fri',
+    'sat_short' => 'Sat',
+
     // Months
     'january' => 'January',
     'february' => 'February',
@@ -1924,4 +1933,20 @@ return [
     "select_project" => "Select Project",
     'printed_at' => 'Printed At',
     'not_signed' => 'Not Signed',
+
+    // DataTable Translations
+    'datatable_info' => 'Showing _START_ to _END_ of _TOTAL_ entries',
+    'datatable_sLengthMenu' => 'Show _MENU_ entries',
+    'datatable_sSearch' => 'Search:',
+    'datatable_sZeroRecords' => 'No matching records found',
+    'datatable_sInfoEmpty' => 'Showing 0 to 0 of 0 entries',
+    'datatable_sInfoFiltered' => '(filtered from _MAX_ total entries)',
+    'datatable_sFirst' => 'First',
+    'datatable_sPrevious' => 'Previous',
+    'datatable_sNext' => 'Next',
+    'datatable_sLast' => 'Last',
+
+    // Expense Types
+    'operational' => 'Operational',
+    'capital' => 'Capital',
 ];
