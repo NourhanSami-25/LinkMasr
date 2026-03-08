@@ -101,33 +101,50 @@ class User extends Authenticatable
 
 
     public function hasAccess(string $subject, string $permission): bool
-    {
-        if ($this->isAdmin()) {
-            return true; // Admin has all access
+        {
+            if ($this->isAdmin()) {
+                return true; // Admin has all access
+            }
+
+            $role = $this->roles->where('name', $subject)->first();
+
+            if (!$role) {
+                return false; // User has no role for this section
+            }
+
+            $accessLevel = $role->pivot->access_level;
+
+            // Handle both JSON format and simple string format
+            if (is_string($accessLevel) && in_array($accessLevel, ['read', 'modify', 'full'])) {
+                // Simple string format from database constraint
+                if ($accessLevel === 'full') {
+                    return true; // Full access grants all permissions
+                }
+                if ($accessLevel === 'modify' && in_array($permission, ['view', 'create', 'edit', 'delete'])) {
+                    return true; // Modify grants basic CRUD permissions
+                }
+                if ($accessLevel === 'read' && $permission === 'view') {
+                    return true; // Read grants only view permission
+                }
+                return false;
+            }
+
+            // Legacy JSON format support
+            $userPermissions = json_decode($accessLevel, true) ?? [];
+
+            // If user has "full", they get all permissions
+            if (in_array('full', $userPermissions)) {
+                return true;
+            }
+
+            // "view_global" is stronger than "view"
+            if ($permission === 'view' && in_array('view_global', $userPermissions)) {
+                return true;
+            }
+
+            // Check if the specific permission exists
+            return in_array($permission, $userPermissions);
         }
-
-        $role = $this->roles->where('name', $subject)->first();
-
-        if (!$role) {
-            return false; // User has no role for this section
-        }
-
-        // Decode JSON string from DB
-        $userPermissions = json_decode($role->pivot->access_level, true) ?? [];
-
-        // If user has "full", they get all permissions
-        if (in_array('full', $userPermissions)) {
-            return true;
-        }
-
-        // "view_global" is stronger than "view"
-        if ($permission === 'view' && in_array('view_global', $userPermissions)) {
-            return true;
-        }
-
-        // Check if the specific permission exists
-        return in_array($permission, $userPermissions);
-    }
 
 
 

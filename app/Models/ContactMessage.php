@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\user\User;
+
+class ContactMessage extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'email', 
+        'subject',
+        'message',
+        'status',
+        'admin_reply',
+        'replied_at',
+        'replied_by'
+    ];
+
+    protected $casts = [
+        'replied_at' => 'datetime',
+    ];
+
+    public function repliedBy()
+    {
+        return $this->belongsTo(User::class, 'replied_by');
+    }
+
+    public function scopeNew($query)
+    {
+        return $query->where('status', 'new');
+    }
+
+    public function scopeRead($query)
+    {
+        return $query->where('status', 'read');
+    }
+
+    public function scopeReplied($query)
+    {
+        return $query->where('status', 'replied');
+    }
+}

@@ -283,76 +283,77 @@ class DashboardController extends Controller
     }
 
     public function get_reminders()
-    {
-        return Cache::remember('dashboard-reminders-' . auth()->id(), 60, function () {
-            $userId = (string) auth()->id();
-            $today = now()->toDateString(); // only date part
-            $sessionToday = now()->startOfDay();
-            $now = now(); // full timestamp
+        {
+            return Cache::remember('dashboard-reminders-' . auth()->id(), 60, function () {
+                $userId = (string) auth()->id();
+                $today = now()->toDateString(); // only date part
+                $sessionToday = now()->startOfDay();
+                $now = now(); // full timestamp
 
-            // Base query with proper grouping for user conditions
-            $baseQuery = Reminder::select('id', 'subject', 'date', 'created_at', 'priority', 'status')
-                ->where(function ($query) use ($userId) {
-                    $query->where('created_by', $userId)
-                        ->orWhereJsonContains('members', $userId);
-                });
+                // Base query with proper grouping for user conditions
+                $baseQuery = Reminder::select('id', 'subject', 'date', 'created_at', 'priority', 'status')
+                    ->where(function ($query) use ($userId) {
+                        $query->where('created_by', $userId);
+                        // Removed orWhereJsonContains for now since members column was missing
+                        // ->orWhereJsonContains('members', $userId);
+                    });
 
-            $allReminders = (clone $baseQuery)
-                ->latest('created_at')
-                ->take(30)
-                ->get();
+                $allReminders = (clone $baseQuery)
+                    ->latest('created_at')
+                    ->take(30)
+                    ->get();
 
-            $todayReminders = (clone $baseQuery)
-                ->where('status', 'pending')
-                ->whereDate('date', $today)
-                ->latest('created_at')
-                ->take(30)
-                ->get();
+                $todayReminders = (clone $baseQuery)
+                    ->where('status', 'pending')
+                    ->whereDate('date', $today)
+                    ->latest('created_at')
+                    ->take(30)
+                    ->get();
 
-            // Missed: status in [pending, missed], and date < today (not time-sensitive)
-            $missedReminders = (clone $baseQuery)
-                ->whereDate('date', '<', $today)
-                // ->where('status', 'missed')
-                ->latest('created_at')
-                ->take(30)
-                ->get();
+                // Missed: status in [pending, missed], and date < today (not time-sensitive)
+                $missedReminders = (clone $baseQuery)
+                    ->whereDate('date', '<', $today)
+                    // ->where('status', 'missed')
+                    ->latest('created_at')
+                    ->take(30)
+                    ->get();
 
-            // Coming: date > today and status not in [completed, missed]
-            $commingReminders = (clone $baseQuery)
-                ->whereDate('date', '>=', $today)
-                ->where('status',  'pending') // Changed from whereNotIn for single value
-                ->latest('created_at')
-                ->take(30)
-                ->get();
+                // Coming: date > today and status not in [completed, missed]
+                $commingReminders = (clone $baseQuery)
+                    ->whereDate('date', '>=', $today)
+                    ->where('status',  'pending') // Changed from whereNotIn for single value
+                    ->latest('created_at')
+                    ->take(30)
+                    ->get();
 
-          
-            // Format reminders (excluding sessions which is already formatted)
-            $formatReminders = function ($reminders) {
-                return $reminders->map(function ($reminder) {
-                    try {
-                        return [
-                            'id' => $reminder->id,
-                            'subject' => $reminder->subject,
-                            'date' => $reminder->date,
-                            'created_at' => $reminder->created_at,
-                            'priority' => $reminder->priority,
-                            'status' => $reminder->status,
-                        ];
-                    } catch (\Exception $e) {
-                        Log::error("Dashboard Reminder Error: " . $e->getMessage());
-                        return null;
-                    }
-                })->filter();
-            };
 
-            return [
-                'todayReminders' => $formatReminders($todayReminders),
-                'commingReminders' => $formatReminders($commingReminders),
-                'missedReminders' => $formatReminders($missedReminders),
-                'allReminders' => $formatReminders($allReminders),
-            ];
-        });
-    }
+                // Format reminders (excluding sessions which is already formatted)
+                $formatReminders = function ($reminders) {
+                    return $reminders->map(function ($reminder) {
+                        try {
+                            return [
+                                'id' => $reminder->id,
+                                'subject' => $reminder->subject,
+                                'date' => $reminder->date,
+                                'created_at' => $reminder->created_at,
+                                'priority' => $reminder->priority,
+                                'status' => $reminder->status,
+                            ];
+                        } catch (\Exception $e) {
+                            Log::error("Dashboard Reminder Error: " . $e->getMessage());
+                            return null;
+                        }
+                    })->filter();
+                };
+
+                return [
+                    'todayReminders' => $formatReminders($todayReminders),
+                    'commingReminders' => $formatReminders($commingReminders),
+                    'missedReminders' => $formatReminders($missedReminders),
+                    'allReminders' => $formatReminders($allReminders),
+                ];
+            });
+        }
 
     public function get_tasks()
     {

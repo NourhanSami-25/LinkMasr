@@ -43,6 +43,11 @@ class UserService
         unset($data['photo']);
 
         $user = User::create($data);
+        
+        // Check if user creation was successful
+        if (!$user) {
+            throw new \Exception('Failed to create user');
+        }
 
         if ($photo instanceof UploadedFile) {
             $folderName = $user->id . '-' . \Carbon\Carbon::parse($user->created_at)->format('Ymd_His');

@@ -1060,17 +1060,17 @@
 											<div class="card-body">
 												<!--begin::Table-->
 												<table class="table table-hover align-middle table-row-dashed fs-6 kt-datatable gy-3"
-													id="tasks_table">
+													id="tasks_table" style="table-layout: fixed; width: 100%;">
 													<!--begin::Table head-->
 													<thead>
 														<!--begin::Table row-->
 														<tr
 															class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-															<th class="min-w-30px">{{ __('general.id') }}</th>
-															<th class="text-end pe-3 min-w-150px">{{ __('general.subject') }}</th>
-															<th class="text-end pe-3 min-w-50px">{{ __('general.date') }}</th>
-															<th class="text-end pe-3 min-w-50px">{{ __('general.due_date') }}</th>
-															<th class="text-end pe-0 min-w-50px">{{ __('general.status') }}</th>
+															<th class="text-center min-w-30px" style="width: 8%;">{{ __('general.id') }}</th>
+															<th class="text-center min-w-150px" style="width: 40%;">{{ __('general.subject') }}</th>
+															<th class="text-center min-w-100px" style="width: 17%;">{{ __('general.date') }}</th>
+															<th class="text-center min-w-100px" style="width: 17%;">{{ __('general.due_date') }}</th>
+															<th class="text-center min-w-80px" style="width: 18%;">{{ __('general.status') }}</th>
 														</tr>
 														<!--end::Table row-->
 													</thead>
@@ -1080,19 +1080,19 @@
 														@foreach ($tasks as $task)
 														<tr>
 															<!--begin::Item-->
-															<td class="text-start">{{$task['id']}}</td>
+															<td class="text-center" style="width: 8%;">{{$task['id']}}</td>
 															<!--end::Item-->
 															<!--begin::Product ID-->
-															<td class="text-end"><a href="{{route('tasks.show' , $task['id'])}}">{{ Str::limit($task['subject'], 50) }}</td>
+															<td class="text-center" style="width: 40%; word-wrap: break-word;"><a href="{{route('tasks.show' , $task['id'])}}">{{ Str::limit($task['subject'], 50) }}</a></td>
 															<!--end::Product ID-->
 															<!--begin::Date added-->
-															<td class="text-end">{{date('Y-m-d', strtotime($task['date']))}}</td>
+															<td class="text-center" style="width: 17%;">{{date('Y-m-d', strtotime($task['date']))}}</td>
 															<!--end::Date added-->
-															<!--begin::Price-->
-															<td class="text-end">{{date('Y-m-d', strtotime($task['due_date']))}}</td>
-															<!--end::Price-->
-															<!--begin::Price-->
-															<td class="text-end">
+															<!--begin::Due Date-->
+															<td class="text-center" style="width: 17%;">{{date('Y-m-d', strtotime($task['due_date']))}}</td>
+															<!--end::Due Date-->
+															<!--begin::Status-->
+															<td class="text-center" style="width: 18%;">
 																<span class="badge py-3 px-4 fs-7 {{ $task['status'] === 'in_progress' ? 'badge-light-primary' : '' }}
 															{{ $task['status'] === 'on_hold' ? 'badge-light-warning' : '' }}
 															{{ $task['status'] === 'not_started' ? 'badge-light-info' : '' }}

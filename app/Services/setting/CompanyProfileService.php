@@ -32,7 +32,10 @@ class CompanyProfileService
         $logo = $data['logo'] ?? null;
         unset($data['logo']);
         if ($logo instanceof UploadedFile) {
-            $fileName = 'logo - ' . $data['name'] . '-' . time() . '.' . $logo->getClientOriginalExtension();
+            // Create safe filename without Arabic characters
+            $safeName = 'company_logo';
+            $fileName = $safeName . '_' . time() . '.' . $logo->getClientOriginalExtension();
+            
             if (app()->environment('production')) {
                 // Production: store in public_html/profile_pictures manually
                 $destination = $_SERVER['DOCUMENT_ROOT'] . "/company_profile";
@@ -76,7 +79,9 @@ class CompanyProfileService
         unset($data['logo']);
 
         if ($logo instanceof UploadedFile) {
-            $fileName = 'logo - ' . $data['name'] . '-' . time() . '.' . $logo->getClientOriginalExtension();
+            // Create safe filename without Arabic characters
+            $safeName = 'company_logo';
+            $fileName = $safeName . '_' . time() . '.' . $logo->getClientOriginalExtension();
 
             if (app()->environment('production')) {
                 $destination = $_SERVER['DOCUMENT_ROOT'] . "/company_profile";

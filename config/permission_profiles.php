@@ -22,6 +22,10 @@ return [
         'approve' => [],
         'user' => [],
         'setting' => [],
+        'construction' => [],
+        'partners' => [],
+        'real_estate' => [],
+        'evm' => [],
     ],
     'senior' => [
         'admin' => [],
@@ -43,6 +47,10 @@ return [
         'approve' => ['full'],
         'user' => [],
         'setting' => [],
+        'construction' => [],
+        'partners' => [],
+        'real_estate' => [],
+        'evm' => [],
     ],
     'manager' => [
         'admin' => [],
@@ -64,6 +72,10 @@ return [
         'approve' => ['full'],
         'user' => [],
         'setting' => [],
+        'construction' => [],
+        'partners' => [],
+        'real_estate' => [],
+        'evm' => [],
     ],
     'hr_manager' => [
         'admin' => [],
@@ -85,6 +97,10 @@ return [
         'approve' => ['full'],
         'user' => ['view_global','create','details','modify'],
         'setting' => [],
+        'construction' => [],
+        'partners' => [],
+        'real_estate' => [],
+        'evm' => [],
     ],
     'accountant' => [
         'admin' => [],
@@ -106,6 +122,10 @@ return [
         'approve' => ['full'],
         'user' => ['view' , 'details'],
         'setting' => [],
+        'construction' => [],
+        'partners' => [],
+        'real_estate' => [],
+        'evm' => [],
     ],
 
 ];

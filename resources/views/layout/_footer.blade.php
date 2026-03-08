@@ -5,7 +5,7 @@
         <div class="text-gray-900 order-2 order-md-1">
             <span class="text-muted fw-semibold me-1">{{ date('Y') }}&copy;</span>
             <a href="https://www.linkmasr.com/support/" target="_blank" class="text-gray-800 text-hover-primary">Link
-                Pro</a>
+                Masr</a>
         </div>
         <!--end::Copyright-->
         <!--begin::Menu-->
@@ -15,7 +15,7 @@
                     class="menu-link px-2">{{ __('general.support') }}</a>
             </li>
             <li class="menu-item">
-                <a href="https://www.linkmasr.com/support/" target="_blank"
+                <a href="{{ route('contact') }}"
                     class="menu-link px-2">{{ __('general.contact') }}</a>
             </li>
         </ul>

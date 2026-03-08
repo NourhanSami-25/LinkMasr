@@ -53,47 +53,50 @@
 	        				<!--begin::Stat-->
 	        				<div
 	        					class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+	        					<!--begin::Label-->
+	        					<div class="fw-semibold fs-6 text-gray-900 mb-2">{{ __('general.start_date') }}</div>
+	        					<!--end::Label-->
 	        					<!--begin::Number-->
 	        					<div class="d-flex align-items-center">
-	        						<div class="fs-4 fw-bold">{{$task->date ?? __('general.not_exists')}}</div>
+	        						<div class="fs-4 fw-bold">{{$task->start_date ? $task->start_date->format('Y-m-d') : __('general.not_exists')}}</div>
 	        					</div>
 	        					<!--end::Number-->
-	        					<!--begin::Label-->
-	        					<div class="fw-semibold fs-6 text-gray-900">{{ __('general.start_date') }}</div>
-	        					<!--end::Label-->
 	        				</div>
 	        				<!--end::Stat-->
                             <!--begin::Stat-->
 	        				<div
 	        					class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+	        					<!--begin::Label-->
+	        					<div class="fw-semibold fs-6 text-gray-900 mb-2">{{ __('general.dead_line') }}</div>
+	        					<!--end::Label-->
 	        					<!--begin::Number-->
 	        					<div class="d-flex align-items-center">
-	        						<div class="fs-4 fw-bold">{{$task->due_date?? __('general.not_exists')}}</div>
+	        						<div class="fs-4 fw-bold">{{$task->due_date ? $task->due_date->format('Y-m-d') : __('general.not_exists')}}</div>
 	        					</div>
 	        					<!--end::Number-->
-	        					<!--begin::Label-->
-	        					<div class="fw-semibold fs-6 text-gray-900">{{ __('general.dead_line') }}</div>
-	        					<!--end::Label-->
 	        				</div>
 	        				<!--end::Stat-->
 							<!--begin::Stat-->
 	        				<div
 	        					class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+	        					<!--begin::Label-->
+	        					<div class="fw-semibold fs-6 text-gray-900 mb-2">{{ __('general.created_by') }}</div>
+	        					<!--end::Label-->
 	        					<!--begin::Number-->
 	        					<div class="d-flex align-items-center">
 	        						<div class="fs-4 fw-bold">{{__getUserNameById($task->created_by)?? __('general.not_exists')}}</div>
 	        					</div>
 	        					<!--end::Number-->
-	        					<!--begin::Label-->
-	        					<div class="fw-semibold fs-6 text-gray-900">{{ __('general.created_by') }}</div>
-	        					<!--end::Label-->
 	        				</div>
 	        				<!--end::Stat-->
 	        				<!--begin::Assignees-->
 							@if($task->assignees)
 	        				<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+	        					<!--begin::Label-->
+	        					<div class="fw-semibold fs-6 text-gray-900 mb-2">{{ __('general.assignees') }}</div>
+	        					<!--end::Label-->
 	        					<div class="symbol-group symbol-hover">
-    								@foreach(json_decode($task->assignees) as $assigneeId)
+    								@foreach((is_string($task->assignees) ? json_decode($task->assignees) : $task->assignees) as $assigneeId)
     								    @php
     								        $username = __getUserNameById($assigneeId)
     								    @endphp
@@ -106,17 +109,17 @@
     								    <!--end::User-->
     								@endforeach
 								</div>
-	        					<!--begin::Label-->
-	        					<div class="fw-semibold fs-6 text-gray-900">{{ __('general.assignees') }}</div>
-	        					<!--end::Label-->
 	        				</div>
 							@endif
 	        				<!--end::Assignees-->
 	        				<!--begin::Followers-->
 							@if($task->followers)
 	        				<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+	        					<!--begin::Label-->
+	        					<div class="fw-semibold fs-6 text-gray-900 mb-2">{{ __('general.followers') }}</div>
+	        					<!--end::Label-->
 	        					<div class="symbol-group symbol-hover">
-    								@foreach(json_decode($task->followers) as $followerId)
+    								@foreach((is_string($task->followers) ? json_decode($task->followers) : $task->followers) as $followerId)
     								    @php
     								        $username = __getUserNameById($followerId)
     								    @endphp
@@ -129,9 +132,6 @@
     								    <!--end::User-->
     								@endforeach
 								</div>
-	        					<!--begin::Label-->
-	        					<div class="fw-semibold fs-6 text-gray-900">{{ __('general.followers') }}</div>
-	        					<!--end::Label-->
 	        				</div>
 							@endif
 	        				<!--end::Followers-->
@@ -244,7 +244,7 @@
             									<td class="text-gray-900 fw-bold">
             										<div class="d-flex align-items-center">{{__('general.start_date')}}</div>
             									</td>
-            									<td class="fw-bold text-end text-gray-800">{{$task->date?? __('general.not_exists')}}</td>
+            									<td class="fw-bold text-end text-gray-800">{{$task->start_date ? $task->start_date->format('Y-m-d H:i') : __('general.not_exists')}}</td>
             								</tr>
                                             <tr>
             									<td class="text-gray-900 fw-bold">

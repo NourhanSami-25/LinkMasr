@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\error\ErrorController;
+use App\Http\Controllers\ContactController;
 
 Route::middleware(['web', 'logging', 'auth', 'verified'])
     ->group(function () {
@@ -32,6 +33,14 @@ Route::middleware(['web', 'logging', 'auth', 'verified'])
         Route::get('print', function () {
             return view('utility.print.index'); // Ensure 'comming_soon.blade.php' exists in resources/views
         })->name('print');
+
+        // Contact page routes
+        Route::get('contact', [ContactController::class, 'index'])->name('contact');
+        Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
+        Route::get('contact/admin', [ContactController::class, 'admin'])->name('contact.admin');
+        Route::get('contact/{id}', [ContactController::class, 'show'])->name('contact.show');
+        Route::post('contact/{id}/reply', [ContactController::class, 'reply'])->name('contact.reply');
+        Route::delete('contact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
 
 
 

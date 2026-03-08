@@ -48,45 +48,48 @@
 	        				<!--begin::Stat-->
 	        				<div
 	        					class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+	        					<!--begin::Label-->
+	        					<div class="fw-semibold fs-6 text-gray-500 mb-2">{{ __('general.start_date') }}</div>
+	        					<!--end::Label-->
 	        					<!--begin::Number-->
 	        					<div class="d-flex align-items-center">
 	        						<div class="fs-4 fw-bold">{{$project->date?? __('general.not_exists')}}</div>
 	        					</div>
 	        					<!--end::Number-->
-	        					<!--begin::Label-->
-	        					<div class="fw-semibold fs-6 text-gray-500">{{ __('general.start_date') }}</div>
-	        					<!--end::Label-->
 	        				</div>
 	        				<!--end::Stat-->
                             <!--begin::Stat-->
 	        				<div
 	        					class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+	        					<!--begin::Label-->
+	        					<div class="fw-semibold fs-6 text-gray-500 mb-2">{{ __('general.dead_line') }}</div>
+	        					<!--end::Label-->
 	        					<!--begin::Number-->
 	        					<div class="d-flex align-items-center">
 	        						<div class="fs-4 fw-bold">{{$project->due_date?? __('general.not_exists')}}</div>
 	        					</div>
 	        					<!--end::Number-->
-	        					<!--begin::Label-->
-	        					<div class="fw-semibold fs-6 text-gray-500">{{ __('general.dead_line') }}</div>
-	        					<!--end::Label-->
 	        				</div>
 	        				<!--end::Stat-->
 							<!--begin::Stat-->
 	        				<div
 	        					class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+	        					<!--begin::Label-->
+	        					<div class="fw-semibold fs-6 text-gray-500 mb-2">{{ __('general.created_by') }}</div>
+	        					<!--end::Label-->
 	        					<!--begin::Number-->
 	        					<div class="d-flex align-items-center">
 	        						<div class="fs-4 fw-bold">{{__getUserNameById($project->created_by)?? __('general.not_exists')}}</div>
 	        					</div>
 	        					<!--end::Number-->
-	        					<!--begin::Label-->
-	        					<div class="fw-semibold fs-6 text-gray-500">{{ __('general.created_by') }}</div>
-	        					<!--end::Label-->
 	        				</div>
 	        				<!--end::Stat-->
 	        				<!--begin::Assignees-->
 							@if($project->assignees)
 	        				<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+	        					<!--begin::Label-->
+	        					<div class="fw-semibold fs-6 text-gray-500 mb-2">{{ __('general.assignees') }}</div>
+	        					<!--end::Label-->
 	        					<div class="symbol-group symbol-hover">
     								@foreach(json_decode($project->assignees) as $assigneeId)
     								    @php
@@ -101,15 +104,15 @@
     								    <!--end::User-->
     								@endforeach
 								</div>
-	        					<!--begin::Label-->
-	        					<div class="fw-semibold fs-6 text-gray-500">{{ __('general.assignees') }}</div>
-	        					<!--end::Label-->
 	        				</div>
 							@endif
 	        				<!--end::Assignees-->
 							<!--begin::Assignees-->
 							@if($project->followers)
 	        				<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+	        					<!--begin::Label-->
+	        					<div class="fw-semibold fs-6 text-gray-500 mb-2">{{ __('general.followers') }}</div>
+	        					<!--end::Label-->
 	        					<div class="symbol-group symbol-hover">
     								@foreach(json_decode($project->followers) as $followerId)
     								    @php
@@ -124,9 +127,6 @@
     								    <!--end::User-->
     								@endforeach
 								</div>
-	        					<!--begin::Label-->
-	        					<div class="fw-semibold fs-6 text-gray-500">{{ __('general.followers') }}</div>
-	        					<!--end::Label-->
 	        				</div>
 							@endif
 	        				<!--end::Assignees-->

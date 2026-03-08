@@ -31,6 +31,7 @@
             sZeroRecords: "{{ __('general.datatable_sZeroRecords') }}",
             sInfoEmpty: "{{ __('general.datatable_sInfoEmpty') }}",
             sInfoFiltered: "{{ __('general.datatable_sInfoFiltered') }}",
+            sEmptyTable: "{{ __('general.no_data_available_in_table') }}",
             paginate: {
                 sFirst: "{{ __('general.datatable_sFirst') }}",
                 sPrevious: "{{ __('general.datatable_sPrevious') }}",

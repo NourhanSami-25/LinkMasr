@@ -2304,6 +2304,7 @@ return [
     'datatable_sPrevious' => 'السابق',
     'datatable_sNext' => 'التالي',
     'datatable_sLast' => 'الأخير',
+    'no_data_available_in_table' => 'لا توجد بيانات متاحة في الجدول',
 
     // Construction Management Interface Translations
     'BOQ Items' => 'بنود جدول الكميات',
@@ -2371,5 +2372,18 @@ return [
     
     // Form Options
     'select_client' => 'اختر العميل',
+    
+    // DataTables translations
+    'no_data_available_in_table' => 'لا توجد بيانات متاحة في الجدول',
+    'datatable_info' => 'عرض _START_ إلى _END_ من _TOTAL_ إدخال',
+    'datatable_sLengthMenu' => 'عرض _MENU_ إدخالات',
+    'datatable_sSearch' => 'البحث:',
+    'datatable_sZeroRecords' => 'لم يتم العثور على سجلات مطابقة',
+    'datatable_sInfoEmpty' => 'عرض 0 إلى 0 من 0 إدخالات',
+    'datatable_sInfoFiltered' => '(تم التصفية من _MAX_ إجمالي الإدخالات)',
+    'datatable_sFirst' => 'الأول',
+    'datatable_sPrevious' => 'السابق',
+    'datatable_sNext' => 'التالي',
+    'datatable_sLast' => 'الأخير',
 
 ];

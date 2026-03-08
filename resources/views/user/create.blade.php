@@ -593,15 +593,15 @@
 															
     														    @foreach ($roles as $role)
     														        @php    														           
-    														            $selectedPermissions = $junior_permissions[$role->subject];
+    														            $selectedPermissions = isset($junior_permissions[$role->name]) ? $junior_permissions[$role->name] : [];
     														        @endphp
 
-    														        @if ($role->subject == 'admin')
+    														        @if ($role->name == 'Administrator')
     														            @continue
     														        @endif
 															
     														        <tr>
-    														            <td class="fs-4 fw-bold">{{ __('general.' . $role->subject) }}</td>
+    														            <td class="fs-4 fw-bold">{{ __('general.' . $role->name) }}</td>
     														            <td>
     														                <div class="d-flex">
     														                    @foreach ($levels as $level)
@@ -691,7 +691,7 @@
     	    accountant: @json($accountant_permissions),
     	};
 
-    	const roleMap = @json($roles->pluck('id', 'subject'));
+    	const roleMap = @json($roles->pluck('id', 'name'));
 	</script>
 
 	{{-- <script>

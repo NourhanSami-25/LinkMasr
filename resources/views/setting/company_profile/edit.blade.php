@@ -520,14 +520,28 @@
 														    <div class="d-flex flex-wrap gap-5 mb-5">
 														        <div class="fv-row w-100 flex-md-root">
 														            <label class="form-label">{{ __('general.logo') }}</label>
-														            <input type="file" name="logo" accept=".png, .jpg, .jpeg"
+														            <input type="file" name="logo" accept=".png,.jpg,.jpeg"
 														                   class="form-control mb-2" onchange="previewLogo(this)"
-														                   data-label="{{ __('general.logo') }}"/>
+														                   data-label="{{ __('general.logo') }}" id="logo-input"/>
+														            @error('logo')
+														                <div class="text-danger">{{ $message }}</div>
+														            @enderror
+														            <small class="text-muted">{{ __('general.allowed_file_types') }}: PNG, JPG, JPEG (الحد الأقصى: 2MB)</small>
 																
 														            <!-- Logo preview -->
 														            <div id="logo-preview-container" class="mt-3" style="{{ $companyProfile->logo ? '' : 'display: none;' }}">
+														                @php
+														                    $logoPath = '';
+														                    if ($companyProfile->logo) {
+														                        if (app()->environment('production')) {
+														                            $logoPath = asset($companyProfile->logo);
+														                        } else {
+														                            $logoPath = asset('storage/' . $companyProfile->logo);
+														                        }
+														                    }
+														                @endphp
 														                <img id="logo-preview" 
-														                     src="{{ $companyProfile->logo ? (app()->environment('production') ? asset($companyProfile->logo) : asset('storage/' . $companyProfile->logo)) : '' }}" 
+														                     src="{{ $logoPath }}" 
 														                     alt="Logo Preview"
 														                     style="max-height: 100px; border: 1px solid #ccc; padding: 5px;"
 														                     class="rounded shadow-sm" />
@@ -669,16 +683,41 @@
 	<!--begin::JS Files Preview Script-->
 	<script>
 	    function previewLogo(input) {
-	        const container = document.getElementById('logo-preview-container');
-	        const preview = document.getElementById('logo-preview');
+	        try {
+	            const container = document.getElementById('logo-preview-container');
+	            const preview = document.getElementById('logo-preview');
 		
-	        if (input.files && input.files[0]) {
-	            const reader = new FileReader();
-	            reader.onload = function (e) {
-	                preview.src = e.target.result;
-	                container.style.display = 'block';
-	            };
-	            reader.readAsDataURL(input.files[0]);
+	            if (input.files && input.files[0]) {
+	                const file = input.files[0];
+	                
+	                // Validate file size (2MB max)
+	                const maxSize = 2 * 1024 * 1024;
+	                if (file.size > maxSize) {
+	                    alert('حجم الملف كبير جداً. الحد الأقصى 2 ميجابايت');
+	                    input.value = '';
+	                    return;
+	                }
+	                
+	                // Validate file type
+	                const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+	                if (!allowedTypes.includes(file.type)) {
+	                    alert('نوع الملف غير مدعوم. يُسمح فقط بـ PNG, JPG, JPEG');
+	                    input.value = '';
+	                    return;
+	                }
+	                
+	                const reader = new FileReader();
+	                reader.onload = function (e) {
+	                    preview.src = e.target.result;
+	                    container.style.display = 'block';
+	                };
+	                reader.readAsDataURL(file);
+	                
+	                console.log('Logo file selected:', file.name, 'Size:', file.size, 'Type:', file.type);
+	            }
+	        } catch (error) {
+	            console.error('Error in previewLogo:', error);
+	            alert('حدث خطأ أثناء معاينة الصورة');
 	        }
 	    }
 	
@@ -691,6 +730,50 @@
 	        preview.src = '';
 	        container.style.display = 'none';
 	    }
+	    
+	    // Handle file input display
+	    document.addEventListener('DOMContentLoaded', function() {
+	        const logoInput = document.querySelector('input[name="logo"]');
+	        if (logoInput) {
+	            logoInput.addEventListener('change', function() {
+	                const fileName = this.files.length > 0 ? this.files[0].name : 'No file chosen';
+	                console.log('File selected:', fileName);
+	                
+	                // Update any file display elements if they exist
+	                const fileDisplay = this.parentElement.querySelector('.file-display');
+	                if (fileDisplay) {
+	                    fileDisplay.textContent = fileName;
+	                }
+	                
+	                // Trigger form validation if needed
+	                if (this.files.length > 0) {
+	                    const file = this.files[0];
+	                    const maxSize = 2 * 1024 * 1024; // 2MB
+	                    const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+	                    
+	                    if (file.size > maxSize) {
+	                        alert('حجم الملف كبير جداً. الحد الأقصى 2 ميجابايت');
+	                        this.value = '';
+	                        return;
+	                    }
+	                    
+	                    if (!allowedTypes.includes(file.type)) {
+	                        alert('نوع الملف غير مدعوم. يُسمح فقط بـ PNG, JPG, JPEG');
+	                        this.value = '';
+	                        return;
+	                    }
+	                }
+	            });
+	        }
+	        
+	        // Debug: Check if form exists
+	        const form = document.querySelector('form[enctype="multipart/form-data"]');
+	        if (form) {
+	            console.log('Form found with correct enctype');
+	        } else {
+	            console.error('Form with multipart/form-data not found');
+	        }
+	    });
 	</script>
 	<!--end::JS Files Preview Script-->
 		

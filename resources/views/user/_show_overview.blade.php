@@ -113,7 +113,7 @@ role="tabpanel">
     							{{__('general.remaining_balance')}}
     						</div>
     					</td>
-    					<td class="fw-bold text-end text-gray-800">{{ max(0, $balance->total_days - $balance->used_days) }} {{__('general.day')}}</td>
+    					<td class="fw-bold text-end text-gray-800">{{ $balance ? max(0, $balance->total_days - $balance->used_days) : 0 }} {{__('general.day')}}</td>
     				</tr>
 					<tr>
     					<td class="text-muted">
